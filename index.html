@@ -1,8 +1,120 @@
 <html>
     <title> INFO5100 Final Proj</title>
+    <head>
+    	<script src="https://d3js.org/d3.v4.min.js"></script>
+    </head>
+
     <body>
-        <div id = "userInputs"></div>
-        <div id = "movingPath"></div>
-        <div id = "lineChart"></div>
+        <div id = "userInputs">
+        	<svg id = "p1" width = "400" height = "400"></svg>
+        </div>
+
+ 	<script type="text/javascript">
+         var svg1 = d3.select("#p1");
+         //random
+         var randomIndex = function(total) {
+		  return Math.floor(Math.random()*total);
+		 }
+		  var nodes1 = d3.range(30).map(function(d) {
+		  	if (d<10) return {
+		  		"radius":8,
+		  		"group":0
+		  	}
+		  	else if(d<20) return {
+		  		"radius":8,
+		  		"group":1
+		  	}
+		 	return {
+		 		"radius":8,
+		 		"group":2};
+		 });
+
+		var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+		 rix = randomIndex(20);
+		 var width = 300;
+		 var height = 300;
+		 var xCenter = [10,100,200]
+		 var yCenter = [10,100,200]
+		 var simulation1 = d3.forceSimulation(nodes1)
+		 // .force('charge', d3.forceManyBody())
+		 .force("center", d3.forceCenter(width / 2, height / 2))
+		 .force('x', d3.forceX().x(function(d) {
+  			return xCenter[d.group];
+			}))
+		 .force('y', d3.forceY().y(function(d) {
+			  return yCenter[d.group];
+			}))
+		 .force('collision', d3.forceCollide().radius(d => d.radius + d.radius*2*Math.random()))
+		 .on('tick', ticked1);
+
+		 var circles = svg1.selectAll('circle')
+		 .data(nodes1).enter()
+		 .append('circle')
+		 .attr('r', d => d.radius)
+		 .attr('fill', d => color(d.group));
+
+		 function ticked1(){
+		  circles.attr("transform", function (d) {
+		         var upperx = Math.min(width-d.radius, d.x);
+		         d.x = Math.max(0+d.radius, upperx);
+		         var uppery = Math.min(height-d.radius, d.y);
+		         d.y = Math.max(0+d.radius, uppery);
+		         return "translate(" + d.x + "," + d.y + ")";
+		        });
+		 }
+		 console.log(circles._groups[0]);
+		circles._groups[0].forEach(function(d){
+			data=d.__data__
+			console.log(data)
+			if(data.group == 1){
+				var points = [
+					[data.x,data.y],
+					[(300+data.x)/2, data.y+Math.random() * 20],
+					[300,data.y]
+					]
+				}
+			else if(data.group == 2){
+					var points = [
+					[data.x,data.y],
+					[(300+data.x)/2, data.y+Math.random() * 20],
+					[300,data.y]
+					]
+				}
+			else{
+					var points = [
+					[data.x,data.y],
+					[(300+data.x)/2, data.y+Math.random() * 20],
+					[300,data.y]
+					]
+				}
+
+			var line = d3.line()
+		       .curve(d3.curveCardinal.tension(.0));
+
+
+		 //     var points = [
+			//    	[0, 80],
+			//    	[100, 100],
+			//    	[200, 30],
+			// ];
+
+			svg1.append("path")
+		   .datum(points)
+		   .attr("d", line)
+		   .style("stroke", "green")
+		   .style("stroke-width", "4")
+		   .style("fill", "transparent");
+
+
+
+
+			// var path = svg1.append("path")
+		 //    .datum(points)
+		 //    .attr("d", line)
+			})
+		
+
+    </script>
     </body>
 </html>

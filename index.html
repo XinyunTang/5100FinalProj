@@ -6,7 +6,8 @@
 
     <body>
         <div id = "userInputs">
-        	<svg id = "p1" width = "400" height = "400"></svg>
+			<svg id = "p1" width = "400" height = "400"></svg>
+			<svg id = "animation" width = "400" height = "600"></svg>
         </div>
 
  	<script type="text/javascript">
@@ -115,6 +116,61 @@
 			})
 		
 
-    </script>
+	</script>
+
+
+	<script>
+		var fake_start = 100000;
+		var fake_end = {"stock":[2000, 20000, 20000], "housing": 2000, "bound": 2000}
+		var fake_obj = {"stock":[0.1, 0.1, 0.3, 0.15], "housing": 0.2, "bound": 0.15};
+		var color_scheme = ["black", "grey", "pink", "green", "yellow", "red", "blue"];
+
+	    draw_money("animation", fake_amount, fake_end, fake_obj, color_scheme);
+
+		function draw_money(id, start_amount, end_amount, ratio_obj, colors) {
+			var svg = d3.select("#" + id);
+			var width = 400;
+			var height = 600;
+			var padding = 30;
+			
+			// generate center names based on input object
+			var centers = [];
+			if (ratio_obj.housing > 0) {
+				centers.push("housing");
+			}
+			else if (ratio_obj.bound > 0) {
+				centers.push("bound");
+			}
+			else if (ratio_obj.stock.length >0) {
+				for (var i = 0; i< ratio_obj.stock.length; i++) {
+					centers.push("stock" + i);
+				}
+			}
+			console.log(centers)
+
+			// generate the coordinates for each activity's centroids
+			var centroids = {};
+			var origin_position = { x:(width-padding) * 0.33, y: height/2, color: colors[0]};
+			// assign positions to different invest options
+    		centers.forEach(function(center, i) {
+				var theta = 2 * Math.PI/party_names.length;
+				centroids[party] = { x: (width-padding) * 0.67,
+									y: (height - padding)/centers.length*(i+1),
+									color: colors[i+1] };
+			});
+
+			// generate data objs
+
+			
+
+			
+			
+		}
+		
+		
+
+	</script>
+
+
     </body>
 </html>

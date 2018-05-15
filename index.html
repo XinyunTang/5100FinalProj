@@ -1,13 +1,57 @@
 <html>
     <title> INFO5100 Final Proj</title>
     <head>
-    	<script src="https://d3js.org/d3.v4.min.js"></script>
+		<!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<script src="https://d3js.org/d3-time.v1.min.js"></script>
+		<link rel="stylesheet" href="main.css">
     </head>
 
     <body>
-        <div id = "userInputs">
-			<svg id = "p1" width = "400" height = "400"></svg>
-			<svg id = "animation" width = "400" height = "600"></svg>
+		<div class='title'>
+			<h1>Invest Calculator</h1>
+		</div>
+		<form class= "global-search" method="post">
+			<div class="form-group">
+				<div class="desc">If I invest </div>
+				<div class="input">
+					<input id="amount" type="text" name="amount" size="60" placeholder="dollars ">
+				</div>
+				<div class="desc">In </div>
+				<input id="year" type="text" name="year" size="60" placeholder="Enter any year from 1996 to 2017">
+				
+			</div>
+			<div >
+
+			</div>
+
+			<div class="form-group">
+				<div class="desc">I want to allocate </div>
+				<div class="input">
+					<input id="housing" type="text" name="keywords" size="60"  placeholder="Enter Percentage">
+				</div>
+				<div class="desc"> to housing</div>
+			</div>
+			<div class="form-group">
+				<div class="desc">and </div>
+				<div class="input">
+					<input id="near" type="text" name="near" size="60" placeholder="Enter Percentage">
+				</div>
+				<div class="desc"> to one-year US bond</div>
+			</div>
+			<div>
+				<div class="desc">and I want to put rest of my money in these companies' stocks </div>
+				<div class="input">
+					<input id="near" type="text" name="near" size="60" placeholder="Select up to five companies">
+				</div>
+				<div class="desc"></div>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-info">Invest!</button>
+		</form>
+        <div>
+			<!-- <svg id = "p1" width = "800" height = "800"></svg> -->
+			<svg id = "animation" width = "800" height = "1000"></svg>
         </div>
 	<script>
 		var fake_start = 100000;
@@ -18,33 +62,38 @@
 							{"company4":0.15},
 							{"company5": 0.05}], 
 						"housing": 0.2, 
-						"bound": 0.1};
+						"bond": 0.1};
 		var color_scheme = ["black", "grey", "pink", "green", "yellow", "red", "blue","pink"];
 
-	    draw_money("animation", fake_start, fake_obj, color_scheme);
+	    // draw_money("animation", fake_start, fake_obj, color_scheme);
 
 		function draw_money(id, start_amount, ratio_obj, colors) {
+
 			var svg = d3.select("#" + id);
-			var width = 400;
+			var width = 800;
 			var height = 600;
 			var padding = 30;
+			var cluster_padding = 5;
+
+			var bubble_total = Math.round(start_amount/1000);
+			var curr_minute = 0;
 			
 			// generate center names based on input object
 			var centers = [];
+			var stock_names = [];
 			if (ratio_obj.housing > 0) {
 				centers.push("housing");
-				console.log(ratio_obj.stock)
 			}
 			if (ratio_obj.bound > 0) {
-				centers.push("bound");
-
+				centers.push("bond");
 			}
 			if (ratio_obj.stock.length >0) {
 				for (var i = 0; i< ratio_obj.stock.length; i++) {
 					centers.push(Object.keys(ratio_obj.stock[i])[0]);
+					stock_names.push(Object.keys(ratio_obj.stock[i])[0]);
 				}
 			}
-			
+			console.log("centers are ")
 
 			// generate the coordinates for each activity's centroids
 			var centroids = {};
@@ -55,53 +104,199 @@
 									y: (height - padding)/centers.length*(i+1),
 									color: colors[i+1] };
 			});
-			console.log("centroids are ", centroids)
-			// generate data objs
-			var invest_counts = [];
-			var all_companies = Object.keys(ratio_obj.stock);
-			for (var i = 0; i< all_companies.length; i++){
-				var curr_count = parseInt(ratio_obj.stock.all_companies[i]* 100); //change 100 to the total number of nodes available
-				for (var j = 0; j< curr_count; j++) {
-					tmp_obj = {}
-				}
 
-			}
-			var nodes = unique_ids.map(function(i) {
-				var tmp_id = i;        
-				var tmp_data = sched_objs.filter(function(d) {return d.id == tmp_id;});
-				console.log(tmp_data)
-				var all_durations = tmp_data.map(function(i) {return parseInt(i.duration);});
-				
-				var tmp_move = all_durations.indexOf(start_year);
-				var tmp_opa = 1;
-				if (tmp_move >= 0) {
-					tmp_opa = 0.99;
-					var tmp_radius = radius_scale(tmp_data[tmp_move].ev);
-				}
-				else {
-					tmp_opa = 0;
-					var tmp_radius = 10;
-				}
-				console.log(tmp_opa)
-				if (tmp_move < 0) tmp_move = tmp_data.length - 1;
-				var act = tmp_data[tmp_move].act; 
-				var init_x = parties[act].x + Math.random();
-				var init_y = parties[act].y + Math.random();
+			console.log("centroids are ", centroids)
+
+			// calculate the # of bubbles for each investment 
+			var invest_counts = [];
+			invest_counts.push({"housing":ratio_obj.housing*bubble_total})
+			invest_counts.push({"bond":ratio_obj.housing*bubble_total})
 			
-				var tmp_obj = {
-					act: act,
-					radius: tmp_radius,
-					opa: tmp_opa,
-					x: init_x,
-					y: init_y,
-					color: colors[tmp_data[tmp_move].act],
-					moves: tmp_move,
-					duration: parseInt(tmp_data[tmp_move].duration),
-					data_obj: tmp_data,
-					state: tmp_id
+			for (var i = 0; i< centers.length; i++) {
+				if (centers[i] != "housing" && centers[i] != "bond") {
+					var tmp_obj = {};
+					var tmp_stock = centers[i];
+					var tmp_index = stock_names.indexOf(tmp_stock);
+					tmp_obj[centers[i]] = ratio_obj.stock[tmp_index][tmp_stock]*bubble_total;
+					invest_counts.push(tmp_obj);
 				}
-				return tmp_obj;
-			});
+			}
+			invest_counts  = Object.assign({}, ...invest_counts)
+
+			// generate bubble nodes
+			var nodes = [];
+			for (var i = 0; i < centers.length; i++) {
+				var tmp_count = invest_counts[centers[i]];
+				console.log(tmp_count)
+				for (var j = 0; j< tmp_count; j++) {
+					var origin_obj = {
+						invest: centers[i],
+						radius: 2,
+						x: origin_position.x,
+						y: origin_position.y,
+						color: color_scheme[i],
+						state: "$"
+					};
+					var target_obj = {
+						invest: centers[i],
+						radius: 2,
+						x: centroids[centers[i]].x,
+						y: centroids[centers[i]].y,
+						color: color_scheme[i],
+						state: "$"
+					};
+					var tmp_obj = {
+						invest: centers[i],
+						radius: 2,
+						// opa: tmp_opa,
+						x: origin_position.x+Math.random(),
+						y: origin_position.y+Math.random(),
+						color: color_scheme[i],
+						current: 0,
+						duration: 1000,
+						data_obj: [origin_obj, target_obj],
+						state: "$"
+					};
+					nodes.push(tmp_obj);
+				}
+			}
+			console.log("nodes are ", nodes)
+
+			// force layout setting
+			var force = d3.layout.force()
+			.nodes(nodes)
+			.size([width, height])
+			.gravity(0)
+			.charge(0)
+			.friction(.91)
+			.on("tick", tick)
+			.start();
+
+			// Draw circle for each node. 
+			var circle = svg.append("g")
+			.attr("class", "node")
+			.selectAll("node")
+			.data(nodes)
+			.enter().append("circle")
+			.attr("id", function(d) { return d.id; })
+			.attr("class", "node")
+			// .attr("text", "happy")
+			.style("fill", function(d) { return d.color; })
+
+			var text = svg
+				.attr("class", "labels")
+				// .selectAll("text")
+				.selectAll("#labels")
+				.data(nodes)
+				.enter().append("text")
+				.attr("class", "nodetext")
+				// .attr("x", d => d.x)
+				// .attr("y", d => d.y)
+				.attr("text-anchor", "middle")
+				.attr("alignment-baseline", "central")
+				// .attr("vertical-align", "middle")
+				.style("fill","white")
+				.style("font-size",d => d.radius*0.8)
+				// .attr("y", -22)
+				.text(function(d) { return d.state });
+
+			circle.transition()
+			.duration(900)
+			.delay(function(d,i) { return i * 5; })
+			.attrTween("r", function(d) {
+				var i = d3.interpolate(0, d.radius);
+				return function(t) { return d.radius = i(t); };
+			}); 
+			
+			function tick(e) {
+				circle
+				.each(gravity(.05 * e.alpha))
+				.each(collide(.5))
+				.style("fill", function(d) { return d.color; })
+				.attr("cx", function(d) { return d.x; })
+				.attr("cy", function(d) { return d.y; })
+				.attr("r", d => d.radius)
+				// .attr("opacity", function(d) { return d.opa});
+
+				text
+				.attr("x", function(d) { return d.origin_x; })
+				.attr("y", function(d) { return d.origin_y; })
+				.style("font-size",d => d.radius*0.8)
+			}
+
+			function gravity(alpha) {
+				return function(d) {
+					d.y += (centroids[d.invest].y - d.y) * alpha;
+					d.x += (centroids[d.invest].x - d.x) * alpha;
+				};
+			}
+
+			function collide(alpha) {
+				var quadtree = d3.geom.quadtree(nodes);
+				// console.log(quadtree)
+				return function(d) {
+					// console.log(d.radius)
+					// var r = d.radius + 2 + Math.max(1, cluster_padding),
+					var r = 1,
+						nx1 = d.x - r,
+						nx2 = d.x + r,
+						ny1 = d.y - r,
+						ny2 = d.y + r;
+					quadtree.visit(function(quad, x1, y1, x2, y2) {
+					if (quad.point && (quad.point !== d)) {
+						var x = d.x - quad.point.x,
+							y = d.y - quad.point.y,
+							l = Math.sqrt(x * x + y * y),
+							r = d.radius + quad.point.radius + (d.act === quad.point.act ? padding : cluster_padding);
+						if (l < r) {
+						l = (l - r) / l * alpha;
+						d.x -= x *= l;
+						d.y -= y *= l;
+						quad.point.x += x;
+						quad.point.y += y;
+						}
+					}
+					return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+					});
+				};
+			}
+
+			function timer() {
+				d3.range(nodes.length).map(function(i) {
+					var curr_node = nodes[i],
+						curr_moves = curr_node.moves; 
+				
+					// Time to go to next activity            
+					if (curr_node.duration == curr_minute) {
+						// if (curr_node.moves == 0) {
+						// 	// console.log("current state is " + curr_node.state + " and minute is " + curr_minute + " we are at the end of the day")
+							
+						// 	// curr_moves = curr_node.data_obj.length - 1;
+						// } else {
+						// 	curr_moves -= 1;
+						// }
+						// curr_minute = end_year;
+
+						// nodes[i].opa = 1;
+					
+						// move if the state has changed party
+						// var original_act = curr_node.act;
+						// curr_node.act = curr_node.data_obj[curr_moves].act;
+
+						// nodes[i].act = curr_node.act;
+						// nodes[i].moves = curr_moves;
+						// nodes[i].radius = radius_scale(parseInt(nodes[i].data_obj[curr_moves].ev));
+						// nodes[i].duration = nodes[i].data_obj[curr_moves].duration;
+						curr_node.cx = centroids[curr_node.invest].x;
+						curr_node.cy = centroids[curr_node.invest].y;
+						curr_minute += 100
+					}
+				});
+				
+				force.resume();
+				setTimeout(timer, 2000);
+			}
+			setTimeout(timer, 2000);
 		}
 		
 		

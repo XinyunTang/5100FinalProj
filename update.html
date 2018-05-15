@@ -324,7 +324,7 @@ function bubbles(data, id, width, height, speed, start_year, end_year) {
     function collide(alpha) {
         var quadtree = d3.geom.quadtree(nodes);
         return function(d) {
-            var r = d.radius + node_radius + Math.max(padding, cluster_padding),
+            var r = d.radius + 2 + Math.max(padding, cluster_padding),
                 nx1 = d.x - r,
                 nx2 = d.x + r,
                 ny1 = d.y - r,

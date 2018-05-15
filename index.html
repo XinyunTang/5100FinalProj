@@ -5,11 +5,11 @@
 		<!-- <script src="https://d3js.org/d3.v3.min.js"></script> -->
 		<script src="https://d3js.org/d3-time.v1.min.js"></script>
 		<script src="realtime.js"></script>
-		<script src="pie.js"></script>
 		<link rel="stylesheet" href="main.css">
     </head>
 
     <body>
+		
 		<div class='title'>
 			<h1>Invest Calculator</h1>
 		</div>
@@ -26,6 +26,7 @@
 			<div >
 
 			</div>
+			<button id='pause'>Pause</button>
 
 			<div class="form-group">
 				<div class="desc">I want to allocate </div>
@@ -52,9 +53,11 @@
 			<button type="submit" class="btn btn-info">Invest!</button>
 		</form>
         <div>
+			<svg id = "slider" width = "800" height = "300"></svg>
 			<!-- <svg id = "p1" width = "800" height = "800"></svg> -->
-			<svg id = "animation" width = "800" height = "1000"></svg>
+			<svg id = "animation" width = "400" height = "400"></svg>
 			<svg id = "chart" width = "800" height = "1000"></svg>
 		</div>
-    </body>
+	</body>
+	<script src="pie.js"></script>
 </html>

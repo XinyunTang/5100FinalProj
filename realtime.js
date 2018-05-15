@@ -1,3 +1,4 @@
+//this part comes from https://bl.ocks.org/pjsier/28d1d410b64dcd74d9dab348514ed256
 function timelineChart() {
     var margin = { top: 20, right: 20, bottom: 50, left: 50 },
         width = 350,
@@ -10,7 +11,7 @@ function timelineChart() {
     // From https://bl.ocks.org/mbostock/5649592
     function transition(path) {
         path.transition()
-            .duration(2000)
+            .duration(5000)
             .attrTween("stroke-dasharray", tweenDash);
     }
     function tweenDash() {
@@ -24,9 +25,10 @@ function timelineChart() {
             data = data.map(function (d, i) {
                 return { time: timeValue(d), value: dataValue(d) };
             });
+            console.log(data);
             var x = d3.scaleTime()
                 .rangeRound([0, width - margin.left - margin.right])
-                .domain(d3.extent(data, function(d) { return d.time; }));
+                .domain(d3.extent(data, function(d) { return d.time; }));  
             var y = d3.scaleLinear()
                 .rangeRound([height - margin.top - margin.bottom, 0])
                 .domain(d3.extent(data, function(d) { return d.value; }));
@@ -47,7 +49,7 @@ function timelineChart() {
                 .attr("stroke-linecap", "round")
                 .attr("stroke-width", 4);
     
-            gEnter.append("g").attr("class", "axis x");
+            var axis_x = gEnter.append("g").attr("class", "axis_x");
             gEnter.append("g").attr("class", "axis y")
                 .append("text")
                 .attr("fill", "#000")
@@ -64,7 +66,7 @@ function timelineChart() {
             var g = svg.select("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            g.select("g.axis.x")
+            var xAxis = g.select("g.axis.x")
                 .attr("transform", "translate(0," + (height - margin.bottom) + ")")
                 .call(d3.axisBottom(x).ticks(5))
                 .select(".domain")
@@ -78,8 +80,44 @@ function timelineChart() {
                 .datum(data)
                 .attr("d", line)
                 .call(transition);
+
+    //     var zoom = d3.zoom()
+    //     .scaleExtent([1, 10])
+    //     .on('zoom', zoomed);
+
+    // svg.call(zoom);
+
+    // function zoomed() {
+    //   console.log('zoomed');
+
+    //   xScale = d3.event.transform.rescaleX(x);
+
+    //   axis_x.call(xAxis.scale(d3.event.transform.rescaleX(x)));
+
+    //   for (key in data[0]) {
+    //       if (key !== 'date') {
+
+    //         line = lines[key];
+    //         path = paths[key];
+
+    //         totalLength = path.node().getTotalLength();
+
+    //         path
+    //           .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+    //           .attr('stroke-dashoffset', totalLength)
+    //           .attr('stroke-dashoffset', 0);
+
+    //         path.attr('d', line(data));
+    //         path.attr('clip-path', 'url(#clip)');
+
+    //       }
+    //     }
+
+    // }
+
         });
     }
+
 
     chart.margin = function (_) {
         if (!arguments.length) return margin;
@@ -118,7 +156,11 @@ function timelineChart() {
     };
 
     return chart;
+
+
+
 }
+//end of this part
 
 
 
@@ -168,20 +210,24 @@ var lines = timelineChart();
 
 
 
-d3.csv("stock_price_clean.csv",function(error,stock){
+d3.csv("stock_price_clean.csv",function(error,data){
   if (error) throw error;
   //filter the stock
-  for(var i = 0; i < stock.length; i++){
-       if(stock[i]["Symbol"] == stockSymbol || stock[i]["Company"] == stockName){
-        stock = stock.filter(function(d){
+  for(var i = 0; i < data.length; i++){
+       if(data[i]["Symbol"] == stockSymbol || data[i]["Company"] == stockName){
+        data = data.filter(function(d){
           return d["Company"] == stockName
         })
        }
   }
 
-   d3.select("#chart").datum(stock).call(lines);
+   d3.select("#chart").datum(data).call(lines);
             d3.select(window).on('resize', resize);
             resize();
+
+
+
+    
 })
 
  //   stock.forEach(function(d) {
@@ -221,63 +267,4 @@ d3.csv("stock_price_clean.csv",function(error,stock){
 		
 
 // 	})
-
-
-
-
-
-
-
-
-
-
-
-
-    // function randomNumberBounds(min, max) {
-    //   return Math.floor(Math.random() * max) + min;
-    // }
-
-    // function seedData() {
-    //   var now = new Date();
-    //   for (var i = 0; i < MAX_LENGTH; ++i) {
-    //     lineArr.push({
-    //       time: new Date(now.getTime() - ((MAX_LENGTH - i) * duration)),
-    //       x: randomNumberBounds(0, 5),
-    //       y: randomNumberBounds(0, 2.5),
-    //       z: randomNumberBounds(0, 10)
-    //     });
-    //   }
-    // }
-
-    // function updateData() {
-    //   var now = new Date();
-
-    //   var lineData = {
-    //     time: now,
-    //     x: randomNumberBounds(0, 5),
-    //     y: randomNumberBounds(0, 2.5),
-    //     z: randomNumberBounds(0, 10)
-    //   };
-    //   lineArr.push(lineData);
-
-    //   if (lineArr.length > 30) {
-    //     lineArr.shift();
-    //   }
-    //   d3.select("#chart").datum(lineArr).call(chart);
-    // }
-
-    // function resize() {
-    //   if (d3.select("#chart svg").empty()) {
-    //     return;
-    //   }
-    //   chart.width(+d3.select("#chart").style("width").replace(/(px)/g, ""));
-    //   d3.select("#chart").call(chart);
-    // }
-
-    // document.addEventListener("DOMContentLoaded", function() {
-    //   seedData();
-    //   window.setInterval(updateData, 500);
-    //   d3.select("#chart").datum(lineArr).call(chart);
-    //   d3.select(window).on('resize', resize);
-    // });
 

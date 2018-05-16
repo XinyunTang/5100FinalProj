@@ -29,8 +29,6 @@ var x = d3.scaleLinear()
 console.log(slider)
 var rect1 = slider.append("rect")
     .attr("class", "track")
-    // .attr("x", 20)
-    // .attr("y", 150)
     .attr("height", 140)
     .attr("width", 20)
     .attr("fill", "#E0E0E0")
@@ -71,8 +69,6 @@ var handle1 = slider.append("rect", ".track-overlay")
     })
     );
 
-console.log(handle1)
-
 var handle2 = slider.append("rect", ".track-overlay")
   .attr("width", 25)
   .attr("height",10)
@@ -103,28 +99,31 @@ slider.transition() // Gratuitous intro!
     })
 
 function hue(h) {
-  if (h <= 140 && h > 0) {
+  if (h <= 120 && h > 0) {
+    
     var handle1_pos = parseInt(d3.select("#handle1").attr("y"));
     var handle2_pos = parseInt(d3.select("#handle2").attr("y"));
     var handle1_diff =  Math.abs(h - parseInt(d3.select("#handle1").attr("y")));
     var handle2_diff =  Math.abs(h - parseInt(d3.select("#handle2").attr("y")));
-  
-    
-  
-    // console.log(ratio1, ratio2, ratio3)
-    if (handle1_diff < 5) {
+    console.log(handle2_diff)
+    if (handle1_diff < 10 && handle2_diff > 10) {
       move_handle1(h, handle1_pos, handle2_pos);
-      if (h > handle2_pos -10) {
-        console.log("here")
-        move_handle2(h+10, handle1_pos, handle2_pos);
-      }
     }
-    else if (handle2_diff < 5) {
+    else if (handle2_diff < 15 && handle1_diff > 10) {
       move_handle2(h, handle1_pos, handle2_pos);
     }
+    else if (handle1_diff < 10 && handle2_diff < 10) {
+      console.log(handle1_diff, handle2_diff);
+      if (handle1_diff < handle2_diff) {
+        move_handle2(h+10, handle1_pos, handle2_pos);
+        move_handle1(h, handle1_pos, handle2_pos);
+      }
+      else {
+        move_handle2(h, handle1_pos, handle2_pos);
+        move_handle1(h-10, handle1_pos, handle2_pos);
+      }
+    }
   }
-  
-  // svg.style("background-color", d3.hsl(h, 0.8, 0.8));
 }
 
 
@@ -137,7 +136,7 @@ function calc_ratio(pos1, pos2) {
 
 function move_handle1(h, pos1, pos2) {
   ratios = calc_ratio(pos1, pos2);
-  console.log(ratios)
+  // console.log(ratios)
   handle1.attr("y", h)
 
   d3.select("#rect1").remove();
@@ -179,17 +178,36 @@ function move_handle1(h, pos1, pos2) {
 }
 
 function move_handle2(h, pos1, pos2) {
-  ratios = calc_ratio(pos1, pos2);
-  console.log(ratios)
-  handle2.attr("y", h)
-  d3.select("#rect3").remove();
-  slider.append("rect")
-  .attr("id", "rect3")
-  .attr("width", 20)
-  .attr("height", 130-h)
-  .attr("y", h + 10)
-  .attr("fill", colors.rect3)
-  .call( d3.drag()
+  if ((130 - h)>0) {
+    ratios = calc_ratio(pos1, pos2);
+    // console.log(ratios)
+    d3.select("#rect3").remove();
+    slider.append("rect")
+    .attr("id", "rect3")
+    .attr("width", 20)
+    .attr("height", 130-h)
+    .attr("y", h + 10)
+    .attr("fill", colors.rect3)
+    .call( d3.drag()
+        .on("start.interrupt", function() { 
+          console.log("interrupt is called");
+          hue(d3.event.y) 
+          slider.interrupt(); 
+        })
+        .on("start drag", function() { 
+          console.log("drag is called");
+          hue(d3.event.y); 
+        })
+        );
+  
+    d3.select("#rect2").remove();
+    slider.append("rect")
+    .attr("id", "rect2")
+    .attr("width", 20)
+    .attr("height", h - pos1 - 10)
+    .attr("y", parseInt(pos1) + 10)
+    .attr("fill", colors.rect2)
+    .call( d3.drag()
       .on("start.interrupt", function() { 
         console.log("interrupt is called");
         hue(d3.event.y) 
@@ -200,22 +218,16 @@ function move_handle2(h, pos1, pos2) {
         hue(d3.event.y); 
       })
       );
+    }
 
-  d3.select("#rect2").remove();
-  slider.append("rect")
-  .attr("id", "rect2")
-  .attr("width", 20)
-  .attr("height", h - pos1 - 10)
-  .attr("y", parseInt(pos1) + 10)
-  .attr("fill", colors.rect2)
-  .call( d3.drag()
+    handle2.attr("y", h)
+    .call( d3.drag()
     .on("start.interrupt", function() { 
-      console.log("interrupt is called");
       hue(d3.event.y) 
       slider.interrupt(); 
     })
     .on("start drag", function() { 
-      console.log("drag is called");
+      console.log("handle 2drag is called");
       hue(d3.event.y); 
     })
     );

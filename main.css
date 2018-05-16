@@ -143,3 +143,27 @@ input[type=text] {
     width: 1000px;
     height: 1000px;
 }
+
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'ts1 ts1 yrchange '
+    'ts2 ts2 barchart'
+    'ts3 ts3 barchart';
+  grid-gap: 10px;
+  padding: 30px;
+  justify-content: center;
+}
+
+#chart_stock { grid-area: ts1; }
+#chart_house { grid-area: ts2; }
+#chart_bond { grid-area: ts3; }
+#year-change { grid-area: yrchange; }
+#bar-chart { grid-area: barchart; }
+
+
+
+
+
+

@@ -9,7 +9,6 @@
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<script src="realtime.js"></script>
 		<link rel="stylesheet" href="main.css">
     </head>
 
@@ -56,11 +55,17 @@
 			</div>
 		</div>
 
-
-        <div>
-			<svg id = "animation" width = "400" height = "400"></svg>
-			<svg id = "chart" width = "800" height = "400"></svg>
+		
+        <div class = "grid-container">
+			<!-- <svg id = "animation" width = "400" height = "400"></svg> -->
+			<svg id = "chart_stock" class = "linechart" width = "800" height = "200"></svg>
+   			<svg id = "chart_house" class = "linechart" width = "800" height = "200"></svg>
+   			<svg id = "chart_bond" class = "linechart" width = "800" height = "200"></svg>
+   			<svg id = "year-change" width = 500 height = 200></svg>
+			<svg id = "bar-chart" width = 500 height = 400></svg>
 		</div>
+
+
 		<div id="report">
 			<div id="inflation_compare"><span style="font-weight: bold">Congraduation!</span> Your investment beats inflation <span style="font-weight: bold">5</span> times:</div>
 			<div id="inflation_result">$100,000 in year <span id="year_value">1996</span> is worth <span id="inflation_value">$120,000</span> in 2018, with <span id="annual_inflation">2%</span> average annual inflation.</div>
@@ -76,4 +81,5 @@
 	<script src="d3.slider.js"></script>
 	<script src="script.js"></script>
 	<script src="report.js"></script>
+	<script src="realtime.js"></script>
 </html>

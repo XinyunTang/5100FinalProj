@@ -9,56 +9,6 @@ var year_slider = d3.slider().min(1996).max(2018).ticks(0).stepValues(d3.range(1
 d3.select("#year_slider").call(year_slider);
 d3.select("#year_value").text(2000);
 
-$('#cityInput').autocomplete({
-  source: 
-      function(req, response) {
-        var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(req.term), "i" );
-        var results = $.grep( cities, function( item ){
-            return matcher.test(item);})
-        response(results.slice(0,10));
-    },
-    minLength: 1,
-  }).keyup(function() { // restrict the input to the available trails in the data
-    var isValid = false;
-    for (i in cities) {
-        if (cities[i].toLowerCase().match(this.value.toLowerCase())) {
-            isValid = true;
-        }
-    }   
-    if (!isValid) {
-        this.value = defaltValue;
-    } else {
-        defaltValue = this.value;
-    }
-  });
-
-$('#stockInput').autocomplete({
-  source: function(req, response) {
-    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(req.term), "i" );
-    var results = $.grep( stocks, function( item ){
-        return matcher.test(item);})
-    response(results.slice(0,10));
-  },
-  minLength: 1,
-  }).keyup(function() { // restrict the input to the available trails in the data
-    var isValid = false;
-    for (i in stocks) {
-        if (stocks[i].toLowerCase().match(this.value.toLowerCase())) {
-            isValid = true;
-        }
-    }   
-    if (!isValid) {
-        this.value = defaltValue;
-    } else {
-        defaltValue = this.value;
-    }
-  });
-
-/*execute a function when someone clicks in the document:*/
-// document.addEventListener("click", function (e) {
-//     closeAllLists(e.target);
-// });
-// }
 
 var cities = ['New York, NY', 'Los Angeles, CA', 'Chicago, IL', 'Houston, TX', 'Philadelphia, PA', 'Phoenix, AZ', 'Las Vegas, NV',
        'San Antonio, TX', 'San Diego, CA', 'San Jose, CA', 'Jacksonville, FL', 'San Francisco, CA', 'Austin, TX',
@@ -99,116 +49,129 @@ var stocks = ['MSI', 'AFL', 'HRS', 'FOXA', 'NSC', 'CMCSA', 'ETR', 'HP', 'IT', 'C
             'TROW', 'CMI', 'CINF', 'FLS', 'KMX', 'STZ', 'BSX', 'ADP', 'EVHC', 'NUE', 'NEM', 'KSU', 'AOS', 'CCL', 'FE', 'DWDP', 'INFO', 
             'GSPC', 'LLL', 'AMG', 'AMGN', 'VMC', 'LB', 'VRSK', 'MXIM', 'AET', 'FDX', 'GLW', 'BBT', 'BHF', 'PNR', 'COP', 'LEN', 'BMRN', 
             'REG', 'MS', 'CSRA', 'DHR', 'AVY', 'KLAC', 'GPC', 'NKE', 'CFG', 'LLY', 'GT', 'TSCO', 'PPG', 'Motorola Solutions Inc.', 'AFLAC Inc', 'Harris Corporation',
-       'Twenty-First Century Fox Inc', 'Norfolk Southern Corp.','Comcast Corp', 'Entergy Corp.', 'Helmerich & Payne',
-       'Gartner Inc', 'Citrix Systems Inc', 'JD.com Inc', "O'Reilly Automotive Inc", 'NRG Energy', 'Alaska Air Group Inc',
-       'Incyte Corp', 'NextEra Energy', 'Concho Resources', 'Valero Energy', 'Fiserv Inc', 'Johnson Controls International',
-       'Williams Cos.', 'AmerisourceBergen Corp', 'Dollar Tree Inc','Newell Brands', 'SBA Communications', 'Martin Marietta Materials',
-       'CF Industries Holdings Inc', 'Fortune Brands Home & Security',"People's United Financial", 'Kraft Heinz Co',
-       'Archer-Daniels-Midland Co', 'FLIR Systems', 'Aon plc','Nordstrom', 'Wynn Resorts Ltd', 'Gap Inc.', 'SVB Financial Group',
-       'Pioneer Natural Resources', 'Verisign Inc.', 'Roper Technologies', 'ANSYS', 'WestRock Company', 'General Dynamics', 'TransDigm Group',
-       'Crown Castle International Corp.', "Macy's Inc.", 'ResMed', 'Amazon.com Inc', 'IDEXX Laboratories Inc', 'Ball Corp',
-       'Southwest Airlines', 'Northern Trust Corp.', 'Newfield Exploration Co', 'Cardinal Health Inc.', 'Comerica Inc.',
-       'Franklin Resources', 'Exelon Corp.', 'Royal Caribbean Cruises Ltd', 'Regeneron Pharmaceuticals Inc',
-       'Weyerhaeuser Corp.', 'PerkinElmer', 'Raytheon Co.', 'Biogen Inc', 'Hasbro Inc', 'Perrigo', 'Henry Schein Inc', 'Walt Disney',
-       'EQT Corporation', 'Cognizant Technology Solutions Corp', "Honeywell Int'l Inc.", 'Pinnacle West Capital', 'Intel Corp',
-       'Praxair Inc.', 'Schlumberger Ltd.', 'Costco Wholesale Corp', 'CBS Corp.', 'Dover Corp.', 'Microsoft Corp', 'Lincoln National',
-       'Fastenal Co', 'Polo Ralph Lauren Corp.', 'D. R. Horton', 'AvalonBay Communities, Inc.', 'Monsanto Co.',
-       'Microchip Technology Inc', 'Philip Morris International', 'Masco Corp.', 'United Technologies', 'Discovery Inc', 'Merck',
-       'Allergan, Plc', 'Tyson Foods', 'Ventas Inc', 'Ingersoll-Rand PLC', 'Intercontinental Exchange', 'Monster Beverage Corp', 'Ford Motor',
-       'J.B. Hunt Transport Services Inc', 'Robert Half International', 'EOG Resources', 'Xilinx Inc', 'Dollar General',
-       'Chipotle Mexican Grill', 'State Street Corp.', 'Sysco Corp.', 'Fifth Third Bancorp', 'Broadcom Inc', 'Campbell Soup',
-       'Mondelez International Inc', 'Baker Hughes, a GE Company', 'Equity Residential', 'Brown-Forman Corp.', 'HCA Holdings',
-       'Cimarex Energy', 'eBay Inc', 'Advanced Micro Devices Inc', 'V.F. Corp.', 'Public Storage', 'Essex Property Trust, Inc.',
-       'Wyndham Worldwide', 'DTE Energy Co.', 'Aptiv Plc', 'S&P Global, Inc.', 'American Water Works Company Inc',
-       'Symantec Corp', 'Public Serv. Enterprise Inc.', 'Alliance Data Systems', 'Kellogg Co.', 'BorgWarner',
-       'Apache Corporation', 'Capital One Financial', 'Synchrony Financial', 'Rockwell Collins', 'Foot Locker Inc',
-       'Agilent Technologies Inc', 'Mattel Inc', 'Discover Financial Services', 'Altria Group Inc', 'Sempra Energy',
-       'Duke Energy', 'CVS Health', 'ONEOK', 'M&T Bank Corp.', 'Booking Holdings Inc', 'Tiffany & Co.', 'Kinder Morgan',
-       'Northrop Grumman Corp.', 'Union Pacific', 'Devon Energy Corp.', 'Leggett & Platt', 'Mid-America Apartments', 'Under Armour Class C', 'Delta Air Lines Inc.', 'AT&T Inc.',
-       'Lockheed Martin Corp.', 'CSX Corp', 'National Oilwell Varco Inc.', 'Western Union Co', 'Coty, Inc', 'The Home Depot', 'XL Capital',
-       'Humana Inc.', 'Align Technology Inc', 'Baxter International Inc.','Zoetis', 'Southern Co.', 'Vornado Realty Trust',
-       'Acuity Brands Inc', 'Loews Corp.', 'PNC Financial Services','Stryker Corp.', 'Oracle Corp.', 'Cboe Global Markets',
-       'Universal Health Services, Inc.', 'American Electric Power','Pulte Homes Inc.', 'Procter & Gamble',
-       'General Growth Properties Inc.', 'Liberty Latin America Ltd','Waste Management Inc.', 'General Electric',
-       'Regions Financial Corp.', 'Pfizer', 'TripAdvisor','Consolidated Edison', 'UnitedHealth Group',
-       'United Rentals, Inc.', 'CenterPoint Energy', 'Ameren Corp','NASDAQ 100', 'Anthem Inc.', 'JM Smucker', 'General Mills',
-       'Qorvo', 'Hilton Worldwide Holdings Inc','American International Group, Inc.', 'Thermo Fisher Scientific',
-       'CA Inc', 'Hanesbrands Inc', 'Kroger Co.', 'Phillips 66','Autodesk Inc', 'Seagate Technology PLC',
-       'Marriott International Inc', 'Take-Two Interactive Software','Xerox Corp.', 'Arconic Inc.', 'Allstate Corp',
-       'Norwegian Cruise Line Holdings Ltd', 'CBRE Group Inc','Mettler Toledo', 'Dr Pepper Snapple Group',
-       'Digital Realty Trust Inc', 'Wec Energy Group Inc','Halliburton Co.', 'Verizon', 'Textron Inc.', 'Qualcomm Inc',
-       'Emerson Electric Company', 'Equinix', 'Navient','Marsh & McLennan', 'Hormel Foods Corp.', 'Cintas Corp',
-       'Colgate-Palmolive', 'Kimco Realty', 'Cisco Systems Inc','LKQ Corporation', 'Berkshire Hathaway', 'Prologis',
-       'Hartford Financial Svc.Gp.', 'Ameriprise Financial','Michael Kors Holdings', 'Medtronic plc', 'BlackRock',
-       'CenturyLink Inc', 'Charles Schwab Corporation', 'Tapestry','Cerner Corp', 'Cabot Oil & Gas', 'Cadence Design Systems',
-       'Time Warner Inc.', 'Becton Dickinson', 'Edwards Lifesciences', 'Waters Corporation', 'CMS Energy', 'Centene Corporation',
-       'Tesla Inc', 'Kimberly-Clark', 'American Airlines Group Inc','AMETEK Inc.', 'IBM', 'News Corp. Class B', 'Chevron',
-       'Progressive Corp.', 'Viacom Inc', 'Andeavor', 'McKesson Corp.','ExxonMobil', 'Conagra Brands', 'AbbVie Inc.',
-       'Simon Property Group Inc', 'Zions Bancorp', 'Wells Fargo','Ross Stores Inc', 'Nektar Therapeutics',
-       'Dow Jones Industrial Average', 'NiSource Inc.','United Parcel Service', 'Charter Communications Inc',
-       'Quanta Services Inc.', 'KeyCorp', 'PayPal Holdings Inc','Laboratory Corp. of America Holding', 'Arthur J. Gallagher & Co.',
-       'AutoZone Inc', 'Freeport-McMoRan Inc.', 'Abbott Laboratories','Activision Blizzard Inc', 'Ulta Beauty Inc', 'Hess Corporation',
-       'Alphabet Class C', 'Stericycle Inc', 'Iron Mountain Incorporated','TE Connectivity Ltd.', 'Mylan NV', 'Hologic Inc',
-       'The Cooper Companies', 'Amphenol Corp','Express Scripts Holding Co', 'Federal Realty Investment Trust',
-       'Hewlett Packard Enterprise', 'Marathon Oil Corp.', 'Baidu Inc',
-       'Goldman Sachs', 'Synopsys Inc.', 'Travelers', 'Marathon Petroleum', 'CIGNA Corp.', 'Shire PLC',
-       'Everest Re Group Ltd.', 'IPG Photonics Corporation', 'SCANA Corp', 'Bank of America Corp', 'AES Corp', 'Assurant Inc.',
-       'Invesco Ltd.', 'Dentsply Sirona Inc', 'Coca-Cola', 'Walgreens Boots Alliance Inc', 'NVIDIA Corp',
-       'TJX Companies Inc.', 'NetEase Inc', "Edison Int'l", 'Facebook', 'Realty Income Corporation', 'HCP Inc.', 'Mastercard Inc.',
-       'Caterpillar', 'General Motors', 'Jacobs Engineering Group', 'United Continental Holdings', 'Molson Coors Brewing Company',
-       'DXC Technology Company', 'Ctrip.Com International Ltd', 'Snap-On Inc.', 'UDR Inc', 'FMC Corporation',
-       'Check Point Software Technologies Ltd', 'Yum! Brands Inc', 'Dominion Energy', 'Alliant Energy Corp', 'International Paper',
-       'Chubb Limited', 'Block H&R', 'TechnipFMC', 'Expeditors International', 'Stanley Black & Decker',
-       'Willis Towers Watson', 'McCormick & Co.', 'Huntington Ingalls Industries', 'Intuitive Surgical Inc',
-       'News Corp. Class A', 'Fluor Corp.', 'Akamai Technologies Inc', 'Vertex Pharmaceuticals Inc', 'Estee Lauder Cos.',
-       'MercadoLibre Inc', 'Analog Devices Inc', 'Xcel Energy Inc', 'Harley-Davidson', '3M', 'Under Armour', 'Mohawk Industries',
-       'IQVIA Holdings Inc.', 'Extra Space Storage', 'American Express', 'Omnicom Group', 'Liberty Global PLC', 'Netflix Inc',
-       'Zimmer Biomet Holdings', 'Albemarle Corp', 'Nielsen Holdings', 'Darden Restaurants', 'Anadarko Petroleum Corp',
-       'Bristol-Myers Squibb', 'C. H. Robinson Worldwide', 'Paychex Inc', 'Illumina Inc', 'Ecolab Inc.', 'Qurate Retail Group', 'Allegion',
-       'Sherwin-Williams', 'Welltower Inc', 'Starbucks Corp', 'Unum Group', 'Eaton Corporation', 'Deere & Co.',
-       'Sirius XM Holdings Inc', 'CME Group Inc.', 'Accenture plc', 'Interpublic Group', 'Electronic Arts', 'Alphabet Class A',
-       'PVH Corp.', 'JPMorgan Chase', 'The Bank of New York Mellon Corp.', 'Applied Materials Inc', 'Garmin Ltd.', 'PepsiCo Inc.', 'NetApp',
-       'Illinois Tool Works', 'HP Inc.', 'Macerich', 'Boeing', 'Visa', 'Huntington Bancshares', 'Equifax Inc.', 'U.S. Bancorp',
-       'F5 Networks', 'Rockwell Automation Inc.', 'MGM Resorts International', 'PPL Corp.', 'Advance Auto Parts',
-       'Packaging Corporation of America', 'SL Green Realty', 'Torchmark Corp.', 'Celgene Corp', 'Noble Energy Inc',
-       'Sealed Air', 'Citigroup Inc.', 'Boston Properties', 'Western Digital Corp', 'Eastman Chemical', 'Church & Dwight',
-       'Host Hotels & Resorts', 'Apartment Investment & Management', 'Red Hat Inc.', 'E*Trade', 'Parker-Hannifin', 'Walmart',
-       'Grainger (W.W.) Inc.', "Lowe's Cos.", 'SunTrust Banks', 'Principal Financial Group', 'Vodafone Group PLC', 'DaVita Inc.',
-       'Whirlpool Corp.', 'Micron Technology Inc', 'Total System Services', 'DISH Network Corp',
-       'Range Resources Corp.', 'Lam Research Corp', 'MetLife Inc.', 'Apple Inc', 'Prudential Financial', 'American Tower Corp A',
-       'Nasdaq, Inc.', 'Republic Services Inc', 'Alexandria Real Estate Equities Inc', 'PACCAR Inc',
-       'The Mosaic Company', 'Intl Flavors & Fragrances', 'Intuit Inc', 'Eversource Energy', 'Target Corp.', "Kohl's Corp.",
-       'Air Products & Chemicals Inc', 'Fidelity National Information Services', 'The Hershey Company',
-       'T-Mobile US Inc', 'Johnson & Johnson', "Moody's Corp", 'Quest Diagnostics', 'Fortive Corp', 'Gilead Sciences Inc',
-       'Raymond James Financial Inc.', 'Duke Realty Corp', 'Texas Instruments Inc', 'The Clorox Company',
-       'Occidental Petroleum', 'NASDAQ Composite', 'Salesforce.com', 'PG&E Corp.', 'Best Buy Co. Inc.', 'Alexion Pharmaceuticals Inc',
-       "McDonald's", 'Adobe Systems Inc', 'Skyworks Solutions Inc', 'Xylem Inc.', 'Juniper Networks', 'LyondellBasell',
-       'Leucadia National Corp.', 'Expedia Group Inc', 'Global Payments Inc.', 'Varian Medical Systems',
-       'T. Rowe Price Group', 'Cummins Inc.', 'Cincinnati Financial', 'Flowserve Corporation', 'Carmax Inc', 'Constellation Brands',
-       'Boston Scientific', 'Automatic Data Processing Inc', 'Envision Healthcare', 'Nucor Corp.', 'Newmont Mining Corporation',
-       'Kansas City Southern', 'A.O. Smith Corp', 'Carnival Corp.', 'FirstEnergy Corp', 'DowDuPont Inc', 'IHS Markit Ltd.', 'S&P 500',
-       'L-3 Communications Holdings', 'Affiliated Managers Group Inc', 'Amgen Inc', 'Vulcan Materials', 'L Brands Inc.',
-       'Verisk Analytics Inc', 'Maxim Integrated Products Inc', 'Aetna Inc', 'FedEx Corporation', 'Corning Inc.',
-       'BB&T Corporation', 'Brighthouse Financial', 'Pentair Ltd.', 'ConocoPhillips', 'Lennar Corp.', 'Biomarin Pharmaceutical Inc',
-       'Regency Centers Corporation', 'Morgan Stanley', 'CSRA Inc.', 'Danaher Corp.', 'Avery Dennison Corp', 'KLA-Tencor Corp',
-       'Genuine Parts', 'Nike', 'Citizens Financial Group','Lilly (Eli) & Co.', 'Goodyear Tire & Rubber', 'Tractor Supply Co', 'PPG Industries']
+           'Twenty-First Century Fox Inc', 'Norfolk Southern Corp.','Comcast Corp', 'Entergy Corp.', 'Helmerich & Payne',
+           'Gartner Inc', 'Citrix Systems Inc', 'JD.com Inc', "O'Reilly Automotive Inc", 'NRG Energy', 'Alaska Air Group Inc',
+           'Incyte Corp', 'NextEra Energy', 'Concho Resources', 'Valero Energy', 'Fiserv Inc', 'Johnson Controls International',
+           'Williams Cos.', 'AmerisourceBergen Corp', 'Dollar Tree Inc','Newell Brands', 'SBA Communications', 'Martin Marietta Materials',
+           'CF Industries Holdings Inc', 'Fortune Brands Home & Security',"People's United Financial", 'Kraft Heinz Co',
+           'Archer-Daniels-Midland Co', 'FLIR Systems', 'Aon plc','Nordstrom', 'Wynn Resorts Ltd', 'Gap Inc.', 'SVB Financial Group',
+           'Pioneer Natural Resources', 'Verisign Inc.', 'Roper Technologies', 'ANSYS', 'WestRock Company', 'General Dynamics', 'TransDigm Group',
+           'Crown Castle International Corp.', "Macy's Inc.", 'ResMed', 'Amazon.com Inc', 'IDEXX Laboratories Inc', 'Ball Corp',
+           'Southwest Airlines', 'Northern Trust Corp.', 'Newfield Exploration Co', 'Cardinal Health Inc.', 'Comerica Inc.',
+           'Franklin Resources', 'Exelon Corp.', 'Royal Caribbean Cruises Ltd', 'Regeneron Pharmaceuticals Inc',
+           'Weyerhaeuser Corp.', 'PerkinElmer', 'Raytheon Co.', 'Biogen Inc', 'Hasbro Inc', 'Perrigo', 'Henry Schein Inc', 'Walt Disney',
+           'EQT Corporation', 'Cognizant Technology Solutions Corp', "Honeywell Int'l Inc.", 'Pinnacle West Capital', 'Intel Corp',
+           'Praxair Inc.', 'Schlumberger Ltd.', 'Costco Wholesale Corp', 'CBS Corp.', 'Dover Corp.', 'Microsoft Corp', 'Lincoln National',
+           'Fastenal Co', 'Polo Ralph Lauren Corp.', 'D. R. Horton', 'AvalonBay Communities, Inc.', 'Monsanto Co.',
+           'Microchip Technology Inc', 'Philip Morris International', 'Masco Corp.', 'United Technologies', 'Discovery Inc', 'Merck',
+           'Allergan, Plc', 'Tyson Foods', 'Ventas Inc', 'Ingersoll-Rand PLC', 'Intercontinental Exchange', 'Monster Beverage Corp', 'Ford Motor',
+           'J.B. Hunt Transport Services Inc', 'Robert Half International', 'EOG Resources', 'Xilinx Inc', 'Dollar General',
+           'Chipotle Mexican Grill', 'State Street Corp.', 'Sysco Corp.', 'Fifth Third Bancorp', 'Broadcom Inc', 'Campbell Soup',
+           'Mondelez International Inc', 'Baker Hughes, a GE Company', 'Equity Residential', 'Brown-Forman Corp.', 'HCA Holdings',
+           'Cimarex Energy', 'eBay Inc', 'Advanced Micro Devices Inc', 'V.F. Corp.', 'Public Storage', 'Essex Property Trust, Inc.',
+           'Wyndham Worldwide', 'DTE Energy Co.', 'Aptiv Plc', 'S&P Global, Inc.', 'American Water Works Company Inc',
+           'Symantec Corp', 'Public Serv. Enterprise Inc.', 'Alliance Data Systems', 'Kellogg Co.', 'BorgWarner',
+           'Apache Corporation', 'Capital One Financial', 'Synchrony Financial', 'Rockwell Collins', 'Foot Locker Inc',
+           'Agilent Technologies Inc', 'Mattel Inc', 'Discover Financial Services', 'Altria Group Inc', 'Sempra Energy',
+           'Duke Energy', 'CVS Health', 'ONEOK', 'M&T Bank Corp.', 'Booking Holdings Inc', 'Tiffany & Co.', 'Kinder Morgan',
+           'Northrop Grumman Corp.', 'Union Pacific', 'Devon Energy Corp.', 'Leggett & Platt', 'Mid-America Apartments', 'Under Armour Class C', 'Delta Air Lines Inc.', 'AT&T Inc.',
+           'Lockheed Martin Corp.', 'CSX Corp', 'National Oilwell Varco Inc.', 'Western Union Co', 'Coty, Inc', 'The Home Depot', 'XL Capital',
+           'Humana Inc.', 'Align Technology Inc', 'Baxter International Inc.','Zoetis', 'Southern Co.', 'Vornado Realty Trust',
+           'Acuity Brands Inc', 'Loews Corp.', 'PNC Financial Services','Stryker Corp.', 'Oracle Corp.', 'Cboe Global Markets',
+           'Universal Health Services, Inc.', 'American Electric Power','Pulte Homes Inc.', 'Procter & Gamble',
+           'General Growth Properties Inc.', 'Liberty Latin America Ltd','Waste Management Inc.', 'General Electric',
+           'Regions Financial Corp.', 'Pfizer', 'TripAdvisor','Consolidated Edison', 'UnitedHealth Group',
+           'United Rentals, Inc.', 'CenterPoint Energy', 'Ameren Corp','NASDAQ 100', 'Anthem Inc.', 'JM Smucker', 'General Mills',
+           'Qorvo', 'Hilton Worldwide Holdings Inc','American International Group, Inc.', 'Thermo Fisher Scientific',
+           'CA Inc', 'Hanesbrands Inc', 'Kroger Co.', 'Phillips 66','Autodesk Inc', 'Seagate Technology PLC',
+           'Marriott International Inc', 'Take-Two Interactive Software','Xerox Corp.', 'Arconic Inc.', 'Allstate Corp',
+           'Norwegian Cruise Line Holdings Ltd', 'CBRE Group Inc','Mettler Toledo', 'Dr Pepper Snapple Group',
+           'Digital Realty Trust Inc', 'Wec Energy Group Inc','Halliburton Co.', 'Verizon', 'Textron Inc.', 'Qualcomm Inc',
+           'Emerson Electric Company', 'Equinix', 'Navient','Marsh & McLennan', 'Hormel Foods Corp.', 'Cintas Corp',
+           'Colgate-Palmolive', 'Kimco Realty', 'Cisco Systems Inc','LKQ Corporation', 'Berkshire Hathaway', 'Prologis',
+           'Hartford Financial Svc.Gp.', 'Ameriprise Financial','Michael Kors Holdings', 'Medtronic plc', 'BlackRock',
+           'CenturyLink Inc', 'Charles Schwab Corporation', 'Tapestry','Cerner Corp', 'Cabot Oil & Gas', 'Cadence Design Systems',
+           'Time Warner Inc.', 'Becton Dickinson', 'Edwards Lifesciences', 'Waters Corporation', 'CMS Energy', 'Centene Corporation',
+           'Tesla Inc', 'Kimberly-Clark', 'American Airlines Group Inc','AMETEK Inc.', 'IBM', 'News Corp. Class B', 'Chevron',
+           'Progressive Corp.', 'Viacom Inc', 'Andeavor', 'McKesson Corp.','ExxonMobil', 'Conagra Brands', 'AbbVie Inc.',
+           'Simon Property Group Inc', 'Zions Bancorp', 'Wells Fargo','Ross Stores Inc', 'Nektar Therapeutics',
+           'Dow Jones Industrial Average', 'NiSource Inc.','United Parcel Service', 'Charter Communications Inc',
+           'Quanta Services Inc.', 'KeyCorp', 'PayPal Holdings Inc','Laboratory Corp. of America Holding', 'Arthur J. Gallagher & Co.',
+           'AutoZone Inc', 'Freeport-McMoRan Inc.', 'Abbott Laboratories','Activision Blizzard Inc', 'Ulta Beauty Inc', 'Hess Corporation',
+           'Alphabet Class C', 'Stericycle Inc', 'Iron Mountain Incorporated','TE Connectivity Ltd.', 'Mylan NV', 'Hologic Inc',
+           'The Cooper Companies', 'Amphenol Corp','Express Scripts Holding Co', 'Federal Realty Investment Trust',
+           'Hewlett Packard Enterprise', 'Marathon Oil Corp.', 'Baidu Inc',
+           'Goldman Sachs', 'Synopsys Inc.', 'Travelers', 'Marathon Petroleum', 'CIGNA Corp.', 'Shire PLC',
+           'Everest Re Group Ltd.', 'IPG Photonics Corporation', 'SCANA Corp', 'Bank of America Corp', 'AES Corp', 'Assurant Inc.',
+           'Invesco Ltd.', 'Dentsply Sirona Inc', 'Coca-Cola', 'Walgreens Boots Alliance Inc', 'NVIDIA Corp',
+           'TJX Companies Inc.', 'NetEase Inc', "Edison Int'l", 'Facebook', 'Realty Income Corporation', 'HCP Inc.', 'Mastercard Inc.',
+           'Caterpillar', 'General Motors', 'Jacobs Engineering Group', 'United Continental Holdings', 'Molson Coors Brewing Company',
+           'DXC Technology Company', 'Ctrip.Com International Ltd', 'Snap-On Inc.', 'UDR Inc', 'FMC Corporation',
+           'Check Point Software Technologies Ltd', 'Yum! Brands Inc', 'Dominion Energy', 'Alliant Energy Corp', 'International Paper',
+           'Chubb Limited', 'Block H&R', 'TechnipFMC', 'Expeditors International', 'Stanley Black & Decker',
+           'Willis Towers Watson', 'McCormick & Co.', 'Huntington Ingalls Industries', 'Intuitive Surgical Inc',
+           'News Corp. Class A', 'Fluor Corp.', 'Akamai Technologies Inc', 'Vertex Pharmaceuticals Inc', 'Estee Lauder Cos.',
+           'MercadoLibre Inc', 'Analog Devices Inc', 'Xcel Energy Inc', 'Harley-Davidson', '3M', 'Under Armour', 'Mohawk Industries',
+           'IQVIA Holdings Inc.', 'Extra Space Storage', 'American Express', 'Omnicom Group', 'Liberty Global PLC', 'Netflix Inc',
+           'Zimmer Biomet Holdings', 'Albemarle Corp', 'Nielsen Holdings', 'Darden Restaurants', 'Anadarko Petroleum Corp',
+           'Bristol-Myers Squibb', 'C. H. Robinson Worldwide', 'Paychex Inc', 'Illumina Inc', 'Ecolab Inc.', 'Qurate Retail Group', 'Allegion',
+           'Sherwin-Williams', 'Welltower Inc', 'Starbucks Corp', 'Unum Group', 'Eaton Corporation', 'Deere & Co.',
+           'Sirius XM Holdings Inc', 'CME Group Inc.', 'Accenture plc', 'Interpublic Group', 'Electronic Arts', 'Alphabet Class A',
+           'PVH Corp.', 'JPMorgan Chase', 'The Bank of New York Mellon Corp.', 'Applied Materials Inc', 'Garmin Ltd.', 'PepsiCo Inc.', 'NetApp',
+           'Illinois Tool Works', 'HP Inc.', 'Macerich', 'Boeing', 'Visa', 'Huntington Bancshares', 'Equifax Inc.', 'U.S. Bancorp',
+           'F5 Networks', 'Rockwell Automation Inc.', 'MGM Resorts International', 'PPL Corp.', 'Advance Auto Parts',
+           'Packaging Corporation of America', 'SL Green Realty', 'Torchmark Corp.', 'Celgene Corp', 'Noble Energy Inc',
+           'Sealed Air', 'Citigroup Inc.', 'Boston Properties', 'Western Digital Corp', 'Eastman Chemical', 'Church & Dwight',
+           'Host Hotels & Resorts', 'Apartment Investment & Management', 'Red Hat Inc.', 'E*Trade', 'Parker-Hannifin', 'Walmart',
+           'Grainger (W.W.) Inc.', "Lowe's Cos.", 'SunTrust Banks', 'Principal Financial Group', 'Vodafone Group PLC', 'DaVita Inc.',
+           'Whirlpool Corp.', 'Micron Technology Inc', 'Total System Services', 'DISH Network Corp',
+           'Range Resources Corp.', 'Lam Research Corp', 'MetLife Inc.', 'Apple Inc', 'Prudential Financial', 'American Tower Corp A',
+           'Nasdaq, Inc.', 'Republic Services Inc', 'Alexandria Real Estate Equities Inc', 'PACCAR Inc',
+           'The Mosaic Company', 'Intl Flavors & Fragrances', 'Intuit Inc', 'Eversource Energy', 'Target Corp.', "Kohl's Corp.",
+           'Air Products & Chemicals Inc', 'Fidelity National Information Services', 'The Hershey Company',
+           'T-Mobile US Inc', 'Johnson & Johnson', "Moody's Corp", 'Quest Diagnostics', 'Fortive Corp', 'Gilead Sciences Inc',
+           'Raymond James Financial Inc.', 'Duke Realty Corp', 'Texas Instruments Inc', 'The Clorox Company',
+           'Occidental Petroleum', 'NASDAQ Composite', 'Salesforce.com', 'PG&E Corp.', 'Best Buy Co. Inc.', 'Alexion Pharmaceuticals Inc',
+           "McDonald's", 'Adobe Systems Inc', 'Skyworks Solutions Inc', 'Xylem Inc.', 'Juniper Networks', 'LyondellBasell',
+           'Leucadia National Corp.', 'Expedia Group Inc', 'Global Payments Inc.', 'Varian Medical Systems',
+           'T. Rowe Price Group', 'Cummins Inc.', 'Cincinnati Financial', 'Flowserve Corporation', 'Carmax Inc', 'Constellation Brands',
+           'Boston Scientific', 'Automatic Data Processing Inc', 'Envision Healthcare', 'Nucor Corp.', 'Newmont Mining Corporation',
+           'Kansas City Southern', 'A.O. Smith Corp', 'Carnival Corp.', 'FirstEnergy Corp', 'DowDuPont Inc', 'IHS Markit Ltd.', 'S&P 500',
+           'L-3 Communications Holdings', 'Affiliated Managers Group Inc', 'Amgen Inc', 'Vulcan Materials', 'L Brands Inc.',
+           'Verisk Analytics Inc', 'Maxim Integrated Products Inc', 'Aetna Inc', 'FedEx Corporation', 'Corning Inc.',
+           'BB&T Corporation', 'Brighthouse Financial', 'Pentair Ltd.', 'ConocoPhillips', 'Lennar Corp.', 'Biomarin Pharmaceutical Inc',
+           'Regency Centers Corporation', 'Morgan Stanley', 'CSRA Inc.', 'Danaher Corp.', 'Avery Dennison Corp', 'KLA-Tencor Corp',
+           'Genuine Parts', 'Nike', 'Citizens Financial Group','Lilly (Eli) & Co.', 'Goodyear Tire & Rubber', 'Tractor Supply Co', 'PPG Industries']
 
-// autocomplete(document.getElementById("cityInput"), cities);
-
-// autocomplete(document.getElementById("stockInput"), stocks);
+$( "#cityInput" ).autocomplete({
+    source: function(request, response) {
+        var results = $.ui.autocomplete.filter(cities, request.term);
+        
+        response(results.slice(0, 10));
+    }
+    });
+$( "#stockInput" ).autocomplete({
+    source: function(request, response) {
+        var results = $.ui.autocomplete.filter(stocks, request.term);
+        
+        response(results.slice(0, 10));
+    }
+    });
 
 var added = [];
 
 function Addstock() {
     var stock = document.getElementById('stockInput').value;
+    var stock = stock.replace(/ /g, '')
     if (stock != "" && added.indexOf(stock) < 0){
         var iDiv = document.createElement('div');
         iDiv.id = stock;
         iDiv.className = 'stockAdded';
-        iDiv.innerHTML = "x  " + stock;
-        added.push(stock)
-        console.log(iDiv);
-        document.getElementById('Addstocks').appendChild(iDiv);        
+        iDiv.innerHTML = stock;
+        added.push(stock);
+        // console.log(iDiv);
+        document.getElementById('Addstocks').appendChild(iDiv);   
+        $("#" + stock).append("<span class='xcross'>x</span>");    
     }
     if (document.getElementsByClassName("stockAdded").length == 5){
         var x = document.getElementById("addbutton");
@@ -217,9 +180,37 @@ function Addstock() {
 }
 
 $('#Addstocks').on('click','.stockAdded',function()  { 
-    this.style.display = "none";
+    var thisID = this.id;
+    var index = added.indexOf(thisID);
+    if (index > -1) {
+      added.splice(index, 1);
+    }
+    $(this).remove();
 });
 
+var property_percent;
+var stock_percent;
+var bond_percent;
 
+$("#slider-range").slider({
+    orientation: "vertical",
+    range: true,
+    min: 0,
+    max: 100,
+    values: [30, 60],
+    slide: function (event, ui) {
+        $("#amount").val("$" + ui.values[0] + " - $" + ui.values[1]);
+        $('#YourDiv').css('height', 100 - ui.values[1] +'%');
+        property_percent = (100 - ui.values[1])/100;
+        stock_percent = (ui.values[1] - ui.values[0])/100;
+        bond_percent = ui.values[0]/100;
+        $("#property_value").text((property_percent* 100).toFixed(0) + '%');
+        $("#stock_value").text((stock_percent* 100).toFixed(0) + '%');
+        $("#bond_value").text((bond_percent* 100).toFixed(0) + '%');
+    }
+}).append('<div id="YourDiv" style="width:100%; height: 50%"></div>');
+
+$("#amount").val("$" + $("#slider-range").slider("values", 0) +
+    " - $" + $("#slider-range").slider("values", 1));
 
 

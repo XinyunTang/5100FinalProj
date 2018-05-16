@@ -6,51 +6,53 @@
 		<script src="https://d3js.org/d3-time.v1.min.js"></script>
 		<script src="realtime.js"></script>
 		<script src="pie.js"></script>
+		<!-- By Song -->
+		
+		
 		<link rel="stylesheet" href="main.css">
     </head>
 
     <body>
-		<div class='title'>
-			<h1>Invest Calculator</h1>
+		<!-- <h1 id="title">Investment Calculator</h1> -->
+		<div id="sub-title">
+			<div class="sentence">If you have $100,000 in year</div>
+			<div id="year">
+				<div id="year_value"></div>
+				<div id="year_slider" class="sliderholder"></div>
+			</div>
+		<div class="sentence">, how do you invest?</div>
 		</div>
-		<form class= "global-search" method="post">
-			<div class="form-group">
-				<div class="desc">If I invest </div>
-				<div class="input">
-					<input id="amount" type="text" name="amount" size="60" placeholder="dollars ">
-				</div>
-				<div class="desc">In </div>
-				<input id="year" type="text" name="year" size="60" placeholder="Enter any year from 1996 to 2017">
-				
-			</div>
-			<div >
-
-			</div>
-
-			<div class="form-group">
-				<div class="desc">I want to allocate </div>
-				<div class="input">
-					<input id="housing" type="text" name="keywords" size="60"  placeholder="Enter Percentage">
-				</div>
-				<div class="desc"> to housing</div>
-			</div>
-			<div class="form-group">
-				<div class="desc">and </div>
-				<div class="input">
-					<input id="near" type="text" name="near" size="60" placeholder="Enter Percentage">
-				</div>
-				<div class="desc"> to one-year US bond</div>
-			</div>
+		<div id="content">You goal is to max your earnings in 2018 by investing in stock, property and bond.</div>
+		<div id="choose">
+			<div>You are going to invest</div>
+			<div id="percent_slider"></div>
 			<div>
-				<div class="desc">and I want to put rest of my money in these companies' stocks </div>
-				<div class="input">
-					<input id="near" type="text" name="near" size="60" placeholder="Select up to five companies">
+				<div class="option">
+					<img class="icon" src="/pic/house.png" alt="property" style="width:20px;margin-right: 10px;">
+					<span id="property_value">30%</span> in property in the city:
+					<div class="autocomplete" style="width:120px;height: 25px;">
+						<input id="cityInput" type="text" name="city" placeholder="New York, NY">
+					</div>
 				</div>
-				<div class="desc"></div>
+				<div class="option" id="stock_option">
+					<img class="icon" src="/pic/stock.png" alt="stock" style="width:20px;margin-right: 10px;">
+					<span id="stock_value">30%</span> in stocks of 
+					<div class="autocomplete" style="width:100px;height: 25px"> 
+						<input id="stockInput" type="text" name="stock" placeholder="GOOGL">
+					</div>
+					<button type="button" onclick="Addstock()">Add</button>
+					<div id="Addstocks">
+					</div>
+
+				</div>
+				<div class="option">
+					<img class="icon" src="/pic/bond.png" alt="bond" style="width:20px;margin-right: 10px;">
+					<span id="bond_value">40%</span> in 1-year Treasury bond
+				</div>
 			</div>
-			<br>
-			<button type="submit" class="btn btn-info">Invest!</button>
-		</form>
+		</div>
+
+
         <div>
 			<!-- <svg id = "p1" width = "800" height = "800"></svg> -->
 			<svg id = "animation" width = "800" height = "1000"></svg>
@@ -58,4 +60,6 @@
 		</div>
 		<div id="chart"></div>
     </body>
+	<script src="d3.slider.js"></script>
+	<script src="script.js"></script>
 </html>

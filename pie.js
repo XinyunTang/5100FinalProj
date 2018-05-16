@@ -33,22 +33,22 @@ var rect1 = slider.append("rect")
     // .attr("y", 150)
     .attr("height", 140)
     .attr("width", 20)
-    .attr("fill", "pink")
+    .attr("fill", "#E0E0E0")
   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-inset")
   .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
     .attr("class", "track-overlay")
     .call( d3.drag()
-        .on("start.interrupt", function() { 
-          console.log("interrupt is called");
-          hue(d3.event.y) 
-          slider.interrupt(); 
-        })
-        .on("start drag", function() { 
-          console.log("drag is called");
-          hue(d3.event.y); 
-        })
-        );
+      .on("start.interrupt", function() { 
+        console.log("interrupt is called");
+        hue(d3.event.y) 
+        slider.interrupt(); 
+      })
+      .on("start drag", function() { 
+        console.log("drag is called");
+        hue(d3.event.y); 
+      })
+    );
 
 var handle1 = slider.append("rect", ".track-overlay")
     .attr("width", 25)
@@ -109,15 +109,17 @@ function hue(h) {
     var handle1_diff =  Math.abs(h - parseInt(d3.select("#handle1").attr("y")));
     var handle2_diff =  Math.abs(h - parseInt(d3.select("#handle2").attr("y")));
   
-    var ratio1 = handle1_pos/150;
-    var ratio2 = handle2_pos/150 - ratio1;
-    var ratio3 = 1 - ratio1 - ratio2;
+    
   
-    console.log(ratio1, ratio2, ratio3)
-    if (handle1_diff < 10) {
+    // console.log(ratio1, ratio2, ratio3)
+    if (handle1_diff < 5) {
       move_handle1(h, handle1_pos, handle2_pos);
+      if (h > handle2_pos -10) {
+        console.log("here")
+        move_handle2(h+10, handle1_pos, handle2_pos);
+      }
     }
-    else if (handle2_diff < 10) {
+    else if (handle2_diff < 5) {
       move_handle2(h, handle1_pos, handle2_pos);
     }
   }
@@ -126,7 +128,16 @@ function hue(h) {
 }
 
 
+function calc_ratio(pos1, pos2) {
+  var ratio1 = pos1/150;
+  var ratio2 = pos2/150 - ratio1;
+  var ratio3 = 1 - ratio1 - ratio2;
+  return [ratio1, ratio2, ratio3];
+}
+
 function move_handle1(h, pos1, pos2) {
+  ratios = calc_ratio(pos1, pos2);
+  console.log(ratios)
   handle1.attr("y", h)
 
   d3.select("#rect1").remove();
@@ -168,6 +179,8 @@ function move_handle1(h, pos1, pos2) {
 }
 
 function move_handle2(h, pos1, pos2) {
+  ratios = calc_ratio(pos1, pos2);
+  console.log(ratios)
   handle2.attr("y", h)
   d3.select("#rect3").remove();
   slider.append("rect")

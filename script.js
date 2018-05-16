@@ -197,15 +197,16 @@ var stocks = ['MSI', 'AFL', 'HRS', 'FOXA', 'NSC', 'CMCSA', 'ETR', 'HP', 'IT', 'C
 
 // autocomplete(document.getElementById("stockInput"), stocks);
 
-
+var added = [];
 
 function Addstock() {
     var stock = document.getElementById('stockInput').value;
-    if (stock != ""){
+    if (stock != "" && added.indexOf(stock) < 0){
         var iDiv = document.createElement('div');
         iDiv.id = stock;
         iDiv.className = 'stockAdded';
         iDiv.innerHTML = "x  " + stock;
+        added.push(stock)
         console.log(iDiv);
         document.getElementById('Addstocks').appendChild(iDiv);        
     }

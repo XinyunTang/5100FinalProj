@@ -57,7 +57,7 @@ var handle1 = slider.append("rect", ".track-overlay")
     .attr("id", "handle1")
     .attr("fill", "black")
     .attr("x", -2)
-    .attr("y", 1)
+    .attr("y", 80)
     .attr("class", "handle")
     // .attr("cy")
     .attr("r", 9);
@@ -70,7 +70,7 @@ var handle2 = slider.append("rect", ".track-overlay")
   .attr("id", "handle2")
   .attr("fill", "black")
   .attr("x", -2)
-  .attr("y", height/2)
+  .attr("y", 160)
   .attr("class", "handle")
   .attr("r", 9);
 

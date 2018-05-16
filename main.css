@@ -45,7 +45,7 @@ body {
 }
 #percent_slider{
     float:left;
-    width: 20px;
+    width: 50px;
     height: 100%;
 }
 div .option{
@@ -53,6 +53,35 @@ div .option{
 }
 
 
+.ui-tooltip {
+  background: #4a4a4a;
+  color: #96f226;
+  border: 2px solid #454545;
+  border-radius: 0px;
+  box-shadow: 0 0 
+}
+.ui-autocomplete {
+  background: grey;
+  border-radius: 2px;
+  list-style: none;
+  list-style-type: none;
+  padding: 10px;
+  margin: 10px;
+}
+
+.ui-autocomplete.source:hover {
+  background: #454545;
+} 
+
+.ui-menu .ui-menu-item a{
+  background:grey;
+  height:18px;
+  font-size:15px;
+}
+
+.ui-menu {
+  max-width: 430px;
+}
 
 .autocomplete {
   /*the container must be positioned relative:*/

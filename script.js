@@ -248,12 +248,24 @@ autocomplete(document.getElementById("stockInput"), stocks);
 
 function Addstock() {
     var stock = document.getElementById('stockInput').value;
-    var iDiv = document.createElement('div');
-    iDiv.className = 'stockAdded';
-    iDiv.innerHTML = stock;
-    console.log(iDiv);
-    document.getElementById('Addstocks').appendChild(iDiv);
+    if (stock != ""){
+        var iDiv = document.createElement('div');
+        iDiv.id = stock;
+        iDiv.className = 'stockAdded';
+        iDiv.innerHTML = "x  " + stock;
+        console.log(iDiv);
+        document.getElementById('Addstocks').appendChild(iDiv);        
+    }
+    if (document.getElementsByClassName("stockAdded").length == 5){
+        var x = document.getElementById("addbutton");
+        x.style.display = "none";
+    }
 }
+
+$('#Addstocks').on('click','.stockAdded',function()  { 
+    this.style.display = "none";
+});
+
 
 
 

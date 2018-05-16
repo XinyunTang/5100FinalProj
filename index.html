@@ -7,6 +7,7 @@
 		<script src="realtime.js"></script>
 		<script src="pie.js"></script>
 		<link rel="stylesheet" href="main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
 
     <body>
@@ -37,9 +38,8 @@
 					<div class="autocomplete" style="width:100px;height: 25px"> 
 						<input id="stockInput" type="text" name="stock" placeholder="GOOGL">
 					</div>
-					<button type="button" onclick="Addstock()">Add</button>
-					<div id="Addstocks">
-					</div>
+					<button id="addbutton" type="button" onclick="Addstock()">Add</button>
+					<div id="Addstocks"></div>
 				</div>
 				<div class="option">
 					<img class="icon" src="/pic/bond.png" alt="bond" style="width:20px;margin-right: 10px;">

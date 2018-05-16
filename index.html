@@ -6,9 +6,6 @@
 		<script src="https://d3js.org/d3-time.v1.min.js"></script>
 		<script src="realtime.js"></script>
 		<script src="pie.js"></script>
-		<!-- By Song -->
-		
-		
 		<link rel="stylesheet" href="main.css">
     </head>
 
@@ -20,7 +17,7 @@
 				<div id="year_value"></div>
 				<div id="year_slider" class="sliderholder"></div>
 			</div>
-		<div class="sentence">, how do you invest?</div>
+			<div class="sentence">, how do you invest?</div>
 		</div>
 		<div id="content">You goal is to max your earnings in 2018 by investing in stock, property and bond.</div>
 		<div id="choose">
@@ -43,7 +40,6 @@
 					<button type="button" onclick="Addstock()">Add</button>
 					<div id="Addstocks">
 					</div>
-
 				</div>
 				<div class="option">
 					<img class="icon" src="/pic/bond.png" alt="bond" style="width:20px;margin-right: 10px;">
@@ -54,11 +50,16 @@
 
 
         <div>
+			<svg id = "slider" width = "800" height = "300"></svg>
 			<!-- <svg id = "p1" width = "800" height = "800"></svg> -->
-			<svg id = "animation" width = "800" height = "1000"></svg>
-			<!-- <svg id = "chart" width = "800" height = "1000"></svg> -->
+			<svg id = "animation" width = "400" height = "400"></svg>
+			<svg id = "chart" width = "800" height = "1000"></svg>
 		</div>
-		<div id="chart"></div>
+		</div>
+		<div id="chart">
+			<button id='pause'>Pause</button>
+		</div>
+		<script src="pie.js"></script>
     </body>
 	<script src="d3.slider.js"></script>
 	<script src="script.js"></script>

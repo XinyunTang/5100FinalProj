@@ -51,7 +51,14 @@ body {
 div .option{
     margin-bottom: 10px;
 }
-
+#Addstocks {
+    display: flex;
+}
+.stockAdded {
+    margin-right: 10px;
+    border: 1px solid #d4d4d4;
+    border-radius: 2px;
+}
 
 .ui-tooltip {
   background: #4a4a4a;

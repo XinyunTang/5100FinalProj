@@ -51,7 +51,7 @@
 					<span id="bond_value">30%</span> in <span style="color:#ca4471;">1-year Treasury bond</span>
 				</div>
 				<div class="option">
-					<button id="submit" type="button" onclick="">Start Invest</button>
+					<button id="submit" type="button" onclick="submitData()">Start Invest</button>
 				</div>
 			</div>
 		</div>
@@ -64,14 +64,13 @@
 		<div id="report">
 			<div id="inflation_compare"><span style="font-weight: bold">Congraduation!</span> Your investment beats inflation <span style="font-weight: bold">5</span> times:</div>
 			<div id="inflation_result">$100,000 in year <span id="year_value">1996</span> is worth <span id="inflation_value">$120,000</span> in 2018, with <span id="annual_inflation">2%</span> average annual inflation.</div>
-			
-			<div id="optimal">
-				<div id="bar-left"></div>
-				<div id="bar-right"></div>
-			</div>
 			<div id="optimal_text">
 				According to your investment proportion in Property, stock and bond, we calculate the optimal profolio for you. With the optimal profolio, the final value is $500,000.
+			</div>			
+			<div id="optimal">
+				<div id="optimal_bar"></div>
 			</div>
+
 		<div>
     </body>
 	<script src="d3.slider.js"></script>

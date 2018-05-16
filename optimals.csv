@@ -1,111 +1,221 @@
-year,stock,stock_short,stock_price,house,house_price,rank
-1996,Quest Diagnostics,DGX,142.6457142857143,"San Francisco, CA",5.78021978021978,0
-1996,Apple Inc,AAPL,77.403972958726,"Oakland, CA",5.593939393939394,1
-1996,Celgene Corp,CELG,73.95424626745866,"Washington, DC",5.533479692645445,2
-1996,Kansas City Southern,KSU,41.9361395646607,"Boston, MA",5.203791469194313,3
-1996,ResMed,RMD,38.767776930248324,"Seattle, WA",5.003875968992248,4
-1997,Amazon.com Inc,AMZN,302.2514238232901,"Oakland, CA",3.761487964989059,0
-1997,Apple Inc,AAPL,109.12834169026526,"Washington, DC",3.742629482071713,1
-1997,Celgene Corp,CELG,104.54764326890472,"San Francisco, CA",3.550147492625369,2
-1997,Mettler Toledo,MTD,91.685389133627,"Boston, MA",3.1522601110229975,3
-1997,"United Rentals, Inc.",URI,55.00266666666666,"Seattle, WA",3.147255689424364,4
-1998,Cognizant Technology Solutions Corp,CTSH,160.94231168292177,"Washington, DC",3.557427258805513,0
-1998,Celgene Corp,CELG,103.06784950071327,"Oakland, CA",3.3607214428857715,1
-1998,Apple Inc,AAPL,68.4283842437147,"San Francisco, CA",2.9124920735573876,2
-1998,Amazon.com Inc,AMZN,41.899683785512906,"Los Angeles, CA",2.6638888888888888,3
-1998,Gilead Sciences Inc,GILD,31.16608431737611,"Seattle, WA",2.638285378743394,4
-1999,NVIDIA Corp,NVDA,75.7054645072032,"Washington, DC",3.1974612129760227,0
-1999,BlackRock,BLK,54.892955014966894,"Oakland, CA",2.9587628865979383,1
-1999,Cognizant Technology Solutions Corp,CTSH,46.41651679385602,"Los Angeles, CA",2.3161533626649904,2
-1999,Celgene Corp,CELG,40.8079247817327,"San Francisco, CA",2.3145312919688426,3
-1999,Apple Inc,AAPL,35.066347888234695,"Seattle, WA",2.2270833333333333,4
-2000,NetEase Inc,NTES,113.32873294106773,"Washington, DC",2.798340778557754,0
-2000,Intuitive Surgical Inc,ISRG,34.66383235427572,"Los Angeles, CA",1.999431495167709,1
-2000,Garmin Ltd.,GRMN,30.180130718954253,"Oakland, CA",1.9551833408782255,2
-2000,Tractor Supply Co,TSCO,30.006472669930506,"Long Beach, CA",1.885428253615128,3
-2000,Tapestry,TPR,28.85800732085751,"Seattle, WA",1.8579335793357934,4
-2001,NetEase Inc,NTES,344.9220767115626,"Washington, DC",2.2155591572123177,0
-2001,Centene Corporation,CNC,181.22532263690272,"Los Angeles, CA",1.6822572445348245,1
-2001,Apple Inc,AAPL,48.36789942292799,"Seattle, WA",1.679930795847751,2
-2001,Amazon.com Inc,AMZN,47.455471767264484,"Portland, OR",1.5910095799557848,3
-2001,Acuity Brands Inc,AYI,32.32538769373226,"Long Beach, CA",1.5823792931806868,4
-2002,NetEase Inc,NTES,210.55622060709706,"Washington, DC",1.5923344947735192,0
-2002,Netflix Inc,NFLX,183.74774749951783,"Seattle, WA",1.5730897009966778,1
-2002,CME Group Inc.,CME,90.07459207459208,"Portland, OR",1.421487603305785,2
-2002,Apple Inc,AAPL,49.77225279825607,"Honolulu, HI",1.3984625240230621,3
-2002,Amazon.com Inc,AMZN,35.363103269330566,"San Francisco, CA",1.3919364217871681,4
-2003,Ctrip.Com International Ltd,CTRP,104.652460871205,"Seattle, WA",1.4250489236790607,0
-2003,Netflix Inc,NFLX,55.68195363188705,"San Francisco, CA",1.2534696859021184,1
-2003,Apple Inc,AAPL,53.52306227973144,"Portland, OR",1.2495201535508638,2
-2003,Illumina Inc,ILMN,49.584289496910856,"Washington, DC",1.1069026548672567,3
-2003,Intuitive Surgical Inc,ISRG,35.31710883643201,"San Jose, CA",1.1018372703412074,4
-2004,Netflix Inc,NFLX,30.21640653188542,"Seattle, WA",1.193274336283186,0
-2004,Apple Inc,AAPL,28.11966751391083,"Portland, OR",1.0829383886255923,1
-2004,Illumina Inc,ILMN,27.05629665891568,"San Francisco, CA",0.8748100881191128,2
-2004,Intuitive Surgical Inc,ISRG,22.58236578917117,"Denver, CO",0.8638647784376428,3
-2004,Booking Holdings Inc,BKNG,21.330230611853167,"San Jose, CA",0.8274760383386581,4
-2005,Netflix Inc,NFLX,44.160366937873796,"Seattle, WA",0.8770069675855802,0
-2005,Baidu Inc,BIDU,27.767037669174734,"Denver, CO",0.7965653896961691,1
-2005,Intercontinental Exchange,ICE,23.3003367003367,"Portland, OR",0.7775530839231547,2
-2005,IHS Markit Ltd.,INFO,22.033856075040305,"Nashville, TN",0.7046728971962617,3
-2005,Booking Holdings Inc,BKNG,21.59878216765795,"Austin, TX",0.6862453531598512,4
-2006,IPG Photonics Corporation,IPGP,44.960546718749995,"Denver, CO",0.759379042690815,0
-2006,Netflix Inc,NFLX,28.814334340476716,"San Francisco, CA",0.656153536438062,1
-2006,Booking Holdings Inc,BKNG,16.494237046072744,"Seattle, WA",0.6513859275053305,2
-2006,Mastercard Inc.,MA,16.041680038510915,"Austin, TX",0.6293103448275862,3
-2006,Amazon.com Inc,AMZN,14.976948333257333,"Nashville, TN",0.587467362924282,4
-2007,Netflix Inc,NFLX,34.51413006920039,"Denver, CO",0.7723718505647263,0
-2007,Ulta Beauty Inc,ULTA,11.352504220596511,"San Francisco, CA",0.6057254391672089,1
-2007,MercadoLibre Inc,MELI,8.840908672849125,"Seattle, WA",0.5923927011051143,2
-2007,Concho Resources,CXO,8.482469321312296,"Boston, MA",0.5671954504639329,3
-2007,Amazon.com Inc,AMZN,7.905344093537524,"Austin, TX",0.5439074200136147,4
-2008,Netflix Inc,NFLX,26.29196897571419,"Denver, CO",0.8672768878718535,0
-2008,Align Technology Inc,ALGN,7.872093870709132,"San Jose, CA",0.711842667806755,1
-2008,Amazon.com Inc,AMZN,7.1290618220629005,"San Francisco, CA",0.7081949058693244,2
-2008,Ulta Beauty Inc,ULTA,6.328036322360954,"Oakland, CA",0.6995574069252799,3
-2008,Regeneron Pharmaceuticals Inc,REGN,5.976679298713198,"Seattle, WA",0.6993965990126165,4
-2009,Charter Communications Inc,CHTR,41.40810995061381,"Oakland, CA",1.0730390600190536,0
-2009,Netflix Inc,NFLX,17.267377377227383,"San Jose, CA",1.05228088159918,1
-2009,Broadcom Inc,AVGO,13.74756683503757,"Denver, CO",0.9101123595505618,2
-2009,Dollar General,DG,9.438097306689835,"Seattle, WA",0.8953808504129703,3
-2009,"United Rentals, Inc.",URI,8.928377260371114,"San Francisco, CA",0.8640483383685801,4
-2010,Tesla Inc,TSLA,8.438378774911358,"Miami, FL",1.1782437745740497,0
-2010,Netflix Inc,NFLX,6.01194898309197,"Oakland, CA",1.134030728996404,1
-2010,NVIDIA Corp,NVDA,5.795080517801722,"San Jose, CA",1.0617919670442841,2
-2010,Align Technology Inc,ALGN,4.7841870189109565,"Sacramento, CA",1.0,3
-2010,"United Rentals, Inc.",URI,4.586115174890277,"Seattle, WA",0.9688592310136638,4
-2011,Michael Kors Holdings,KORS,12.242148760330581,"Oakland, CA",1.354978354978355,0
-2011,Aptiv Plc,APTV,11.316762900968389,"Miami, FL",1.3277310924369747,1
-2011,TripAdvisor,TRIP,5.757377049180329,"Sacramento, CA",1.231686541737649,2
-2011,Fortune Brands Home & Security,FBHS,4.587854832914121,"San Jose, CA",1.173134328358209,3
-2011,NVIDIA Corp,NVDA,4.444197464520385,"Phoenix, AZ",1.1538461538461537,4
-2012,American Airlines Group Inc,AAL,15.42546327312463,"Oakland, CA",1.3592338272497289,0
-2012,AbbVie Inc.,ABBV,13.869142857142856,"Atlanta, GA",1.260692464358452,1
-2012,Netflix Inc,NFLX,8.828367638307041,"Sacramento, CA",1.1706710853355426,2
-2012,NVIDIA Corp,NVDA,5.842686970404028,"Miami, FL",1.15006468305304,3
-2012,Nektar Therapeutics,NKTR,3.42977952258617,"San Jose, CA",1.0512295081967213,4
-2013,Hilton Worldwide Holdings Inc,HLT,7.850460915671133,"Atlanta, GA",0.8990590248075278,0
-2013,NVIDIA Corp,NVDA,5.63748175943298,"Oakland, CA",0.8872506504770165,1
-2013,Allegion,ALLE,3.444468700540304,"Detroit, MI",0.8421052631578947,2
-2013,Nektar Therapeutics,NKTR,2.3164770235614673,"Seattle, WA",0.8016865367839489,3
-2013,Netflix Inc,NFLX,2.3062539756113196,"Miami, FL",0.7587301587301587,4
-2014,NVIDIA Corp,NVDA,4.052364328784513,"Seattle, WA",0.6655913978494624,0
-2014,Nektar Therapeutics,NKTR,1.6286603927374728,"Oakland, CA",0.6027498158605451,1
-2014,Citizens Financial Group,CFG,1.2684656084656085,"Detroit, MI",0.6,2
-2014,Take-Two Interactive Software,TTWO,1.0792373533680177,"Atlanta, GA",0.5994236311239193,3
-2014,Netflix Inc,NFLX,0.9209942912085299,"Nashville, TN",0.5670103092783505,4
-2015,NVIDIA Corp,NVDA,3.033662112026062,"Seattle, WA",0.4741851058767547,0
-2015,Hewlett Packard Enterprise,HPE,2.1112248987043056,"Atlanta, GA",0.45003265839320705,1
-2015,CSRA Inc.,CSRA,1.986553545701937,"Memphis, TN",0.4358974358974359,2
-2015,Nektar Therapeutics,NKTR,1.744230789124668,"Cleveland, OH",0.39792387543252594,3
-2015,Advanced Micro Devices Inc,AMD,0.9750000000000002,"Oakland, CA",0.39487179487179486,4
-2016,Nektar Therapeutics,NKTR,1.3081599552885272,"Memphis, TN",0.3125,0
-2016,Arconic Inc.,ARNC,1.0853847478051297,"San Jose, CA",0.2674897119341564,1
-2016,NVIDIA Corp,NVDA,0.8400066044745317,"Detroit, MI",0.2669683257918552,2
-2016,Micron Technology Inc,MU,0.3672221556168327,"Seattle, WA",0.2632008154943935,3
-2016,Align Technology Inc,ALGN,0.2655577502858923,"Philadelphia, PA",0.2516010978956999,4
-2017,Welltower Inc,WELL,129.9878574898785,"Detroit, MI",0.13821138211382114,0
-2017,Nektar Therapeutics,NKTR,0.5725414250929416,"San Jose, CA",0.13717693836978131,1
-2017,"Baker Hughes, a GE Company",BHGE,-0.2517661860060002,"Baltimore, MD",0.11294765840220386,2
-2017,Booking Holdings Inc,BKNG,-0.25994756752691606,"Cleveland, OH",0.10684931506849316,3
-2017,Netflix Inc,NFLX,-0.30778006049781653,"Seattle, WA",0.10151111111111111,4
+year,stock,stock_short,stock_long,price,type,rank
+1996,"Seattle, WA","Seattle, WA","Seattle, WA",5.003875969,property,4
+1996,"Boston, MA","Boston, MA","Boston, MA",5.203791469,property,3
+1996,"Washington, DC","Washington, DC","Washington, DC",5.533479693,property,2
+1996,"Oakland, CA","Oakland, CA","Oakland, CA",5.593939394,property,1
+1996,"San Francisco, CA","San Francisco, CA","San Francisco, CA",5.78021978,property,0
+1997,"Seattle, WA","Seattle, WA","Seattle, WA",3.147255689,property,4
+1997,"Boston, MA","Boston, MA","Boston, MA",3.152260111,property,3
+1997,"San Francisco, CA","San Francisco, CA","San Francisco, CA",3.550147493,property,2
+1997,"Washington, DC","Washington, DC","Washington, DC",3.742629482,property,1
+1997,"Oakland, CA","Oakland, CA","Oakland, CA",3.761487965,property,0
+1998,"Seattle, WA","Seattle, WA","Seattle, WA",2.638285379,property,4
+1998,"Los Angeles, CA","Los Angeles, CA","Los Angeles, CA",2.663888889,property,3
+1998,"San Francisco, CA","San Francisco, CA","San Francisco, CA",2.912492074,property,2
+1998,"Oakland, CA","Oakland, CA","Oakland, CA",3.360721443,property,1
+1998,"Washington, DC","Washington, DC","Washington, DC",3.557427259,property,0
+1999,"Seattle, WA","Seattle, WA","Seattle, WA",2.227083333,property,4
+1999,"San Francisco, CA","San Francisco, CA","San Francisco, CA",2.314531292,property,3
+1999,"Los Angeles, CA","Los Angeles, CA","Los Angeles, CA",2.316153363,property,2
+1999,"Oakland, CA","Oakland, CA","Oakland, CA",2.958762887,property,1
+1999,"Washington, DC","Washington, DC","Washington, DC",3.197461213,property,0
+2000,"Seattle, WA","Seattle, WA","Seattle, WA",1.857933579,property,4
+2000,"Long Beach, CA","Long Beach, CA","Long Beach, CA",1.885428254,property,3
+2000,"Oakland, CA","Oakland, CA","Oakland, CA",1.955183341,property,2
+2000,"Los Angeles, CA","Los Angeles, CA","Los Angeles, CA",1.999431495,property,1
+2000,"Washington, DC","Washington, DC","Washington, DC",2.798340779,property,0
+2001,"Long Beach, CA","Long Beach, CA","Long Beach, CA",1.582379293,property,4
+2001,"Portland, OR","Portland, OR","Portland, OR",1.59100958,property,3
+2001,"Seattle, WA","Seattle, WA","Seattle, WA",1.679930796,property,2
+2001,"Los Angeles, CA","Los Angeles, CA","Los Angeles, CA",1.682257245,property,1
+2001,"Washington, DC","Washington, DC","Washington, DC",2.215559157,property,0
+2002,"San Francisco, CA","San Francisco, CA","San Francisco, CA",1.391936422,property,4
+2002,"Honolulu, HI","Honolulu, HI","Honolulu, HI",1.398462524,property,3
+2002,"Portland, OR","Portland, OR","Portland, OR",1.421487603,property,2
+2002,"Seattle, WA","Seattle, WA","Seattle, WA",1.573089701,property,1
+2002,"Washington, DC","Washington, DC","Washington, DC",1.592334495,property,0
+2003,"San Jose, CA","San Jose, CA","San Jose, CA",1.10183727,property,4
+2003,"Washington, DC","Washington, DC","Washington, DC",1.106902655,property,3
+2003,"Portland, OR","Portland, OR","Portland, OR",1.249520154,property,2
+2003,"San Francisco, CA","San Francisco, CA","San Francisco, CA",1.253469686,property,1
+2003,"Seattle, WA","Seattle, WA","Seattle, WA",1.425048924,property,0
+2004,"San Jose, CA","San Jose, CA","San Jose, CA",0.827476038,property,4
+2004,"Denver, CO","Denver, CO","Denver, CO",0.863864778,property,3
+2004,"San Francisco, CA","San Francisco, CA","San Francisco, CA",0.874810088,property,2
+2004,"Portland, OR","Portland, OR","Portland, OR",1.082938389,property,1
+2004,"Seattle, WA","Seattle, WA","Seattle, WA",1.193274336,property,0
+2005,"Austin, TX","Austin, TX","Austin, TX",0.686245353,property,4
+2005,"Nashville, TN","Nashville, TN","Nashville, TN",0.704672897,property,3
+2005,"Portland, OR","Portland, OR","Portland, OR",0.777553084,property,2
+2005,"Denver, CO","Denver, CO","Denver, CO",0.79656539,property,1
+2005,"Seattle, WA","Seattle, WA","Seattle, WA",0.877006968,property,0
+2006,"Nashville, TN","Nashville, TN","Nashville, TN",0.587467363,property,4
+2006,"Austin, TX","Austin, TX","Austin, TX",0.629310345,property,3
+2006,"Seattle, WA","Seattle, WA","Seattle, WA",0.651385928,property,2
+2006,"San Francisco, CA","San Francisco, CA","San Francisco, CA",0.656153536,property,1
+2006,"Denver, CO","Denver, CO","Denver, CO",0.759379043,property,0
+2007,"Austin, TX","Austin, TX","Austin, TX",0.54390742,property,4
+2007,"Boston, MA","Boston, MA","Boston, MA",0.56719545,property,3
+2007,"Seattle, WA","Seattle, WA","Seattle, WA",0.592392701,property,2
+2007,"San Francisco, CA","San Francisco, CA","San Francisco, CA",0.605725439,property,1
+2007,"Denver, CO","Denver, CO","Denver, CO",0.772371851,property,0
+2008,"Seattle, WA","Seattle, WA","Seattle, WA",0.699396599,property,4
+2008,"Oakland, CA","Oakland, CA","Oakland, CA",0.699557407,property,3
+2008,"San Francisco, CA","San Francisco, CA","San Francisco, CA",0.708194906,property,2
+2008,"San Jose, CA","San Jose, CA","San Jose, CA",0.711842668,property,1
+2008,"Denver, CO","Denver, CO","Denver, CO",0.867276888,property,0
+2009,"San Francisco, CA","San Francisco, CA","San Francisco, CA",0.864048338,property,4
+2009,"Seattle, WA","Seattle, WA","Seattle, WA",0.89538085,property,3
+2009,"Denver, CO","Denver, CO","Denver, CO",0.91011236,property,2
+2009,"San Jose, CA","San Jose, CA","San Jose, CA",1.052280882,property,1
+2009,"Oakland, CA","Oakland, CA","Oakland, CA",1.07303906,property,0
+2010,"Seattle, WA","Seattle, WA","Seattle, WA",0.968859231,property,4
+2010,"Sacramento, CA","Sacramento, CA","Sacramento, CA",1,property,3
+2010,"San Jose, CA","San Jose, CA","San Jose, CA",1.061791967,property,2
+2010,"Oakland, CA","Oakland, CA","Oakland, CA",1.134030729,property,1
+2010,"Miami, FL","Miami, FL","Miami, FL",1.178243775,property,0
+2011,"Phoenix, AZ","Phoenix, AZ","Phoenix, AZ",1.153846154,property,4
+2011,"San Jose, CA","San Jose, CA","San Jose, CA",1.173134328,property,3
+2011,"Sacramento, CA","Sacramento, CA","Sacramento, CA",1.231686542,property,2
+2011,"Miami, FL","Miami, FL","Miami, FL",1.327731092,property,1
+2011,"Oakland, CA","Oakland, CA","Oakland, CA",1.354978355,property,0
+2012,"San Jose, CA","San Jose, CA","San Jose, CA",1.051229508,property,4
+2012,"Miami, FL","Miami, FL","Miami, FL",1.150064683,property,3
+2012,"Sacramento, CA","Sacramento, CA","Sacramento, CA",1.170671085,property,2
+2012,"Atlanta, GA","Atlanta, GA","Atlanta, GA",1.260692464,property,1
+2012,"Oakland, CA","Oakland, CA","Oakland, CA",1.359233827,property,0
+2013,"Miami, FL","Miami, FL","Miami, FL",0.758730159,property,4
+2013,"Seattle, WA","Seattle, WA","Seattle, WA",0.801686537,property,3
+2013,"Detroit, MI","Detroit, MI","Detroit, MI",0.842105263,property,2
+2013,"Oakland, CA","Oakland, CA","Oakland, CA",0.88725065,property,1
+2013,"Atlanta, GA","Atlanta, GA","Atlanta, GA",0.899059025,property,0
+2014,"Nashville, TN","Nashville, TN","Nashville, TN",0.567010309,property,4
+2014,"Atlanta, GA","Atlanta, GA","Atlanta, GA",0.599423631,property,3
+2014,"Detroit, MI","Detroit, MI","Detroit, MI",0.6,property,2
+2014,"Oakland, CA","Oakland, CA","Oakland, CA",0.602749816,property,1
+2014,"Seattle, WA","Seattle, WA","Seattle, WA",0.665591398,property,0
+2015,"Oakland, CA","Oakland, CA","Oakland, CA",0.394871795,property,4
+2015,"Cleveland, OH","Cleveland, OH","Cleveland, OH",0.397923875,property,3
+2015,"Memphis, TN","Memphis, TN","Memphis, TN",0.435897436,property,2
+2015,"Atlanta, GA","Atlanta, GA","Atlanta, GA",0.450032658,property,1
+2015,"Seattle, WA","Seattle, WA","Seattle, WA",0.474185106,property,0
+2016,"Philadelphia, PA","Philadelphia, PA","Philadelphia, PA",0.251601098,property,4
+2016,"Seattle, WA","Seattle, WA","Seattle, WA",0.263200815,property,3
+2016,"Detroit, MI","Detroit, MI","Detroit, MI",0.266968326,property,2
+2016,"San Jose, CA","San Jose, CA","San Jose, CA",0.267489712,property,1
+2016,"Memphis, TN","Memphis, TN","Memphis, TN",0.3125,property,0
+2017,"Seattle, WA","Seattle, WA","Seattle, WA",0.101511111,property,4
+2017,"Cleveland, OH","Cleveland, OH","Cleveland, OH",0.106849315,property,3
+2017,"Baltimore, MD","Baltimore, MD","Baltimore, MD",0.112947658,property,2
+2017,"San Jose, CA","San Jose, CA","San Jose, CA",0.137176938,property,1
+2017,"Detroit, MI","Detroit, MI","Detroit, MI",0.138211382,property,0
+1996,ResMed,RMD,RMD : ResMed,38.76777693,stock,4
+1996,Kansas City Southern,KSU,KSU : Kansas City Southern,41.93613956,stock,3
+1996,Celgene Corp,CELG,CELG : Celgene Corp,73.95424627,stock,2
+1996,Apple Inc,AAPL,AAPL : Apple Inc,77.40397296,stock,1
+1996,Quest Diagnostics,DGX,DGX : Quest Diagnostics,142.6457143,stock,0
+1997,"United Rentals, Inc.",URI,"URI : United Rentals, Inc.",55.00266667,stock,4
+1997,Mettler Toledo,MTD,MTD : Mettler Toledo,91.68538913,stock,3
+1997,Celgene Corp,CELG,CELG : Celgene Corp,104.5476433,stock,2
+1997,Apple Inc,AAPL,AAPL : Apple Inc,109.1283417,stock,1
+1997,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,302.2514238,stock,0
+1998,Gilead Sciences Inc,GILD,GILD : Gilead Sciences Inc,31.16608432,stock,4
+1998,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,41.89968379,stock,3
+1998,Apple Inc,AAPL,AAPL : Apple Inc,68.42838424,stock,2
+1998,Celgene Corp,CELG,CELG : Celgene Corp,103.0678495,stock,1
+1998,Cognizant Technology Solutions Corp,CTSH,CTSH : Cognizant Technology Solutions Corp,160.9423117,stock,0
+1999,Apple Inc,AAPL,AAPL : Apple Inc,35.06634789,stock,4
+1999,Celgene Corp,CELG,CELG : Celgene Corp,40.80792478,stock,3
+1999,Cognizant Technology Solutions Corp,CTSH,CTSH : Cognizant Technology Solutions Corp,46.41651679,stock,2
+1999,BlackRock,BLK,BLK : BlackRock,54.89295501,stock,1
+1999,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,75.70546451,stock,0
+2000,Tapestry,TPR,TPR : Tapestry,28.85800732,stock,4
+2000,Tractor Supply Co,TSCO,TSCO : Tractor Supply Co,30.00647267,stock,3
+2000,Garmin Ltd.,GRMN,GRMN : Garmin Ltd.,30.18013072,stock,2
+2000,Intuitive Surgical Inc,ISRG,ISRG : Intuitive Surgical Inc,34.66383235,stock,1
+2000,NetEase Inc,NTES,NTES : NetEase Inc,113.3287329,stock,0
+2001,Acuity Brands Inc,AYI,AYI : Acuity Brands Inc,32.32538769,stock,4
+2001,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,47.45547177,stock,3
+2001,Apple Inc,AAPL,AAPL : Apple Inc,48.36789942,stock,2
+2001,Centene Corporation,CNC,CNC : Centene Corporation,181.2253226,stock,1
+2001,NetEase Inc,NTES,NTES : NetEase Inc,344.9220767,stock,0
+2002,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,35.36310327,stock,4
+2002,Apple Inc,AAPL,AAPL : Apple Inc,49.7722528,stock,3
+2002,CME Group Inc.,CME,CME : CME Group Inc.,90.07459207,stock,2
+2002,Netflix Inc,NFLX,NFLX : Netflix Inc,183.7477475,stock,1
+2002,NetEase Inc,NTES,NTES : NetEase Inc,210.5562206,stock,0
+2003,Intuitive Surgical Inc,ISRG,ISRG : Intuitive Surgical Inc,35.31710884,stock,4
+2003,Illumina Inc,ILMN,ILMN : Illumina Inc,49.5842895,stock,3
+2003,Apple Inc,AAPL,AAPL : Apple Inc,53.52306228,stock,2
+2003,Netflix Inc,NFLX,NFLX : Netflix Inc,55.68195363,stock,1
+2003,Ctrip.Com International Ltd,CTRP,CTRP : Ctrip.Com International Ltd,104.6524609,stock,0
+2004,Booking Holdings Inc,BKNG,BKNG : Booking Holdings Inc,21.33023061,stock,4
+2004,Intuitive Surgical Inc,ISRG,ISRG : Intuitive Surgical Inc,22.58236579,stock,3
+2004,Illumina Inc,ILMN,ILMN : Illumina Inc,27.05629666,stock,2
+2004,Apple Inc,AAPL,AAPL : Apple Inc,28.11966751,stock,1
+2004,Netflix Inc,NFLX,NFLX : Netflix Inc,30.21640653,stock,0
+2005,Booking Holdings Inc,BKNG,BKNG : Booking Holdings Inc,21.59878217,stock,4
+2005,IHS Markit Ltd.,INFO,INFO : IHS Markit Ltd.,22.03385608,stock,3
+2005,Intercontinental Exchange,ICE,ICE : Intercontinental Exchange,23.3003367,stock,2
+2005,Baidu Inc,BIDU,BIDU : Baidu Inc,27.76703767,stock,1
+2005,Netflix Inc,NFLX,NFLX : Netflix Inc,44.16036694,stock,0
+2006,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,14.97694833,stock,4
+2006,Mastercard Inc.,MA,MA : Mastercard Inc.,16.04168004,stock,3
+2006,Booking Holdings Inc,BKNG,BKNG : Booking Holdings Inc,16.49423705,stock,2
+2006,Netflix Inc,NFLX,NFLX : Netflix Inc,28.81433434,stock,1
+2006,IPG Photonics Corporation,IPGP,IPGP : IPG Photonics Corporation,44.96054672,stock,0
+2007,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,7.905344094,stock,4
+2007,Concho Resources,CXO,CXO : Concho Resources,8.482469321,stock,3
+2007,MercadoLibre Inc,MELI,MELI : MercadoLibre Inc,8.840908673,stock,2
+2007,Ulta Beauty Inc,ULTA,ULTA : Ulta Beauty Inc,11.35250422,stock,1
+2007,Netflix Inc,NFLX,NFLX : Netflix Inc,34.51413007,stock,0
+2008,Regeneron Pharmaceuticals Inc,REGN,REGN : Regeneron Pharmaceuticals Inc,5.976679299,stock,4
+2008,Ulta Beauty Inc,ULTA,ULTA : Ulta Beauty Inc,6.328036322,stock,3
+2008,Amazon.com Inc,AMZN,AMZN : Amazon.com Inc,7.129061822,stock,2
+2008,Align Technology Inc,ALGN,ALGN : Align Technology Inc,7.872093871,stock,1
+2008,Netflix Inc,NFLX,NFLX : Netflix Inc,26.29196898,stock,0
+2009,"United Rentals, Inc.",URI,"URI : United Rentals, Inc.",8.92837726,stock,4
+2009,Dollar General,DG,DG : Dollar General,9.438097307,stock,3
+2009,Broadcom Inc,AVGO,AVGO : Broadcom Inc,13.74756684,stock,2
+2009,Netflix Inc,NFLX,NFLX : Netflix Inc,17.26737738,stock,1
+2009,Charter Communications Inc,CHTR,CHTR : Charter Communications Inc,41.40810995,stock,0
+2010,"United Rentals, Inc.",URI,"URI : United Rentals, Inc.",4.586115175,stock,4
+2010,Align Technology Inc,ALGN,ALGN : Align Technology Inc,4.784187019,stock,3
+2010,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,5.795080518,stock,2
+2010,Netflix Inc,NFLX,NFLX : Netflix Inc,6.011948983,stock,1
+2010,Tesla Inc,TSLA,TSLA : Tesla Inc,8.438378775,stock,0
+2011,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,4.444197465,stock,4
+2011,Fortune Brands Home & Security,FBHS,FBHS : Fortune Brands Home & Security,4.587854833,stock,3
+2011,TripAdvisor,TRIP,TRIP : TripAdvisor,5.757377049,stock,2
+2011,Aptiv Plc,APTV,APTV : Aptiv Plc,11.3167629,stock,1
+2011,Michael Kors Holdings,KORS,KORS : Michael Kors Holdings,12.24214876,stock,0
+2012,Nektar Therapeutics,NKTR,NKTR : Nektar Therapeutics,3.429779523,stock,4
+2012,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,5.84268697,stock,3
+2012,Netflix Inc,NFLX,NFLX : Netflix Inc,8.828367638,stock,2
+2012,AbbVie Inc.,ABBV,ABBV : AbbVie Inc.,13.86914286,stock,1
+2012,American Airlines Group Inc,AAL,AAL : American Airlines Group Inc,15.42546327,stock,0
+2013,Netflix Inc,NFLX,NFLX : Netflix Inc,2.306253976,stock,4
+2013,Nektar Therapeutics,NKTR,NKTR : Nektar Therapeutics,2.316477024,stock,3
+2013,Allegion,ALLE,ALLE : Allegion,3.444468701,stock,2
+2013,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,5.637481759,stock,1
+2013,Hilton Worldwide Holdings Inc,HLT,HLT : Hilton Worldwide Holdings Inc,7.850460916,stock,0
+2014,Netflix Inc,NFLX,NFLX : Netflix Inc,0.920994291,stock,4
+2014,Take-Two Interactive Software,TTWO,TTWO : Take-Two Interactive Software,1.079237353,stock,3
+2014,Citizens Financial Group,CFG,CFG : Citizens Financial Group,1.268465608,stock,2
+2014,Nektar Therapeutics,NKTR,NKTR : Nektar Therapeutics,1.628660393,stock,1
+2014,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,4.052364329,stock,0
+2015,Advanced Micro Devices Inc,AMD,AMD : Advanced Micro Devices Inc,0.975,stock,4
+2015,Nektar Therapeutics,NKTR,NKTR : Nektar Therapeutics,1.744230789,stock,3
+2015,CSRA Inc.,CSRA,CSRA : CSRA Inc.,1.986553546,stock,2
+2015,Hewlett Packard Enterprise,HPE,HPE : Hewlett Packard Enterprise,2.111224899,stock,1
+2015,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,3.033662112,stock,0
+2016,Align Technology Inc,ALGN,ALGN : Align Technology Inc,0.26555775,stock,4
+2016,Micron Technology Inc,MU,MU : Micron Technology Inc,0.367222156,stock,3
+2016,NVIDIA Corp,NVDA,NVDA : NVIDIA Corp,0.840006604,stock,2
+2016,Arconic Inc.,ARNC,ARNC : Arconic Inc.,1.085384748,stock,1
+2016,Nektar Therapeutics,NKTR,NKTR : Nektar Therapeutics,1.308159955,stock,0
+2017,Netflix Inc,NFLX,NFLX : Netflix Inc,-0.30778006,stock,4
+2017,Booking Holdings Inc,BKNG,BKNG : Booking Holdings Inc,-0.259947568,stock,3
+2017,"Baker Hughes, a GE Company",BHGE,"BHGE : Baker Hughes, a GE Company",-0.251766186,stock,2
+2017,Nektar Therapeutics,NKTR,NKTR : Nektar Therapeutics,0.572541425,stock,1
+2017,Welltower Inc,WELL,WELL : Welltower Inc,129.9878575,stock,0

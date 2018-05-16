@@ -131,7 +131,6 @@ input[type=text] {
     text-align: center;
 }
 #optimal_text {
-    text-align: center;
 }
 #optimal{
     margin-left: 60px;
@@ -140,7 +139,7 @@ input[type=text] {
     justify-content: center;
     width: 100%;
 }
-#bar-left, #bar-right{
-    width: 600px;
-    height: 230px;
+#optimal_bar{
+    width: 1000px;
+    height: 1000px;
 }

@@ -9,48 +9,48 @@ var year_slider = d3.slider().min(1996).max(2018).ticks(0).stepValues(d3.range(1
 d3.select("#year_slider").call(year_slider);
 d3.select("#year_value").text(2000);
 
-$('#cityInput').autocomplete({
-  // autoFocus: true,
-  source: 
-  // function(request, response) {
-  //     var results = $.ui.autocomplete.filter(cities, request.term);
-  //     response(results.slice(0,10)); // only display five auto suggestions
-  // }
-      function(req, responseFn) {
-        var re = $.ui.autocomplete.escapeRegex(req.term);
-        // var matcher = new RegExp( "^" + re, "i" );
-        var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
-        response( $.grep( cities, function( item ){
-          return matcher.test( item.label );
-      }) );
-      //   response( select.children( "option" ).map(function() {
-      //     var text = $( this ).text();
-      //     if ( this.value && ( !request.term || matcher.test(text) ) )
-      //         return {
-      //             label: text.replace(
-      //                 new RegExp(
-      //                     "(?![^&;]+;)(?!<[^<>]*)(" +
-      //                     $.ui.autocomplete.escapeRegex(request.term) +
-      //                     ")(?![^<>]*>)(?![^&;]+;)", "gi"
-      //                 ), "<strong>$1</strong>" ),
-      //             value: text,
-      //             option: this
-      //         };
-      // }) );
-    }
-  }).keyup(function() { // restrict the input to the available trails in the data
-    var isValid = false;
-    for (i in cities) {
-        if (cities[i].toLowerCase().match(this.value.toLowerCase())) {
-            isValid = true;
-        }
-    }   
-    if (!isValid) {
-        this.value = defaltValue;
-    } else {
-        defaltValue = this.value;
-    }
-  });
+// $('#cityInput').autocomplete({
+//   // autoFocus: true,
+//   source: 
+//   // function(request, response) {
+//   //     var results = $.ui.autocomplete.filter(cities, request.term);
+//   //     response(results.slice(0,10)); // only display five auto suggestions
+//   // }
+//       function(req, responseFn) {
+//         var re = $.ui.autocomplete.escapeRegex(req.term);
+//         // var matcher = new RegExp( "^" + re, "i" );
+//         var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex(request.term), "i" );
+//         response( $.grep( cities, function( item ){
+//           return matcher.test( item.label );
+//       }) );
+//       //   response( select.children( "option" ).map(function() {
+//       //     var text = $( this ).text();
+//       //     if ( this.value && ( !request.term || matcher.test(text) ) )
+//       //         return {
+//       //             label: text.replace(
+//       //                 new RegExp(
+//       //                     "(?![^&;]+;)(?!<[^<>]*)(" +
+//       //                     $.ui.autocomplete.escapeRegex(request.term) +
+//       //                     ")(?![^<>]*>)(?![^&;]+;)", "gi"
+//       //                 ), "<strong>$1</strong>" ),
+//       //             value: text,
+//       //             option: this
+//       //         };
+//       // }) );
+//     }
+//   }).keyup(function() { // restrict the input to the available trails in the data
+//     var isValid = false;
+//     for (i in cities) {
+//         if (cities[i].toLowerCase().match(this.value.toLowerCase())) {
+//             isValid = true;
+//         }
+//     }   
+//     if (!isValid) {
+//         this.value = defaltValue;
+//     } else {
+//         defaltValue = this.value;
+//     }
+//   });
 
 $('#stockInput').autocomplete({
   // autoFocus: true,
@@ -170,9 +170,9 @@ $('#stockInput').autocomplete({
 // }
 
 /*execute a function when someone clicks in the document:*/
-document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-});
+// document.addEventListener("click", function (e) {
+//     closeAllLists(e.target);
+// });
 // }
 
 var cities = ['New York, NY', 'Los Angeles, CA', 'Chicago, IL', 'Houston, TX', 'Philadelphia, PA', 'Phoenix, AZ', 'Las Vegas, NV',
@@ -308,9 +308,9 @@ var stocks = ['MSI', 'AFL', 'HRS', 'FOXA', 'NSC', 'CMCSA', 'ETR', 'HP', 'IT', 'C
        'Regency Centers Corporation', 'Morgan Stanley', 'CSRA Inc.', 'Danaher Corp.', 'Avery Dennison Corp', 'KLA-Tencor Corp',
        'Genuine Parts', 'Nike', 'Citizens Financial Group','Lilly (Eli) & Co.', 'Goodyear Tire & Rubber', 'Tractor Supply Co', 'PPG Industries']
 
-autocomplete(document.getElementById("cityInput"), cities);
+// autocomplete(document.getElementById("cityInput"), cities);
 
-autocomplete(document.getElementById("stockInput"), stocks);
+// autocomplete(document.getElementById("stockInput"), stocks);
 
 
 

@@ -3,43 +3,65 @@
 
 // start year , city, chosen stock, invest ratio
 var end = "2018-03"; 
-var start, city, chosenStock, stockRatio;//edit this with input later
+var start, city, chosenStock, chosenPrice;//edit this with input later
 
 // default values
 start = "1996-01"
 city = "New York, NY";
-chosenStock = ['GOOGL']
-stockRatio = [0.4, 0.3, 0.2]
-
+chosenStock = ['GOOGL', 'ABC']
+chosenPrice = [0.4, 0.3, 0.3]
 barclasses = ["house", "bond"]
 barclasses = chosenStock.concat(barclasses);
-// chosenStock = ['MSI', 
-//     'AFL', 
-//     'FOXA', 
-//     'HRS', 
-//     'NSC']
 
 
+var startYear = parseInt(start.substring(0,4))
+var startMonth = parseInt(start.substring(5))
+var totalTime = (2018-startYear)*12 + (3-startMonth)+1;
+
+var TRAINSITION_DURATION = 50;
+
+// submit trigger 
 function submitData() {
-    start = str(year_slider.value()) + "-01";
-    stockRatio = [property_percent, stock_percent, bond_percent];
-    city = $("#cityInput").value;
+    start = year_slider.value().toString() + "-01";
+    startYear = parseInt(start.substring(0,4));
+    startMonth = parseInt(start.substring(5));
+    totalTime = (2018-startYear)*12 + (3-startMonth);
+
+    chosenPrice = [property_percent, stock_percent, bond_percent];
+    city = $("#cityInput")[0].value;
     var stock = $(".stockAdded")
     chosenStock = [];
     for(i=0;i<stock.length;i++){
         chosenStock.push(stock[i].id);
     }
-    console.log(start)
-    console.log(city)
-    console.log(chosenStock)
-    console.log(stockRatio)
+
+    if (city == null){
+        alert("Please input the city!");
+    }
+    if (chosenStock.length == 0){
+        alert("Please input the stock!");
+    }
+
+    if(city != null && chosenStock.length != 0) {
+        barclasses = ["house", "bond"]
+        barclasses = chosenStock.concat(barclasses);
+        bandScale = d3.scaleBand()
+        .domain(barclasses)
+        .range([10, barheight])
+        .paddingInner(0.2)
+        .paddingOuter(0.2);
+
+        colorScale = {"house": "#E2C843", 
+        "bond": "#85BB4B"}
+        for (var i = 0; i < chosenStock.length; i++) {
+            colorScale[chosenStock[i]] = stock_colors[i]
+        }
+
+        ready(false, stockDataset, houseDataset,bondDataset);
+    }
+
+    
 }
-
-
-var startYear = parseInt(start.substring(0,4))
-var startMonth = parseInt(start.substring(5))
-var totalTime = (2018-startYear)*12 + (3-startMonth);
-
 
 
 
@@ -57,7 +79,8 @@ function timelineChart() {
     // From https://bl.ocks.org/mbostock/5649592
     function transition(path) {
         path.transition()
-            .duration(5000)
+            .duration(TRAINSITION_DURATION*totalTime*1.2)
+            //.delay(TRAINSITION_DURATION)
             .attrTween("stroke-dasharray", tweenDash);
     }
     function tweenDash() {
@@ -69,9 +92,7 @@ function timelineChart() {
     function chart(selection) {
 
         selection.each(function (data) {
-            //console.log(selection)
-            // data stock or not
-            //console.log(data[0].Symbol)
+
             var isStock = data[0].Symbol!=null;
             var isBond = parseFloat(data[0].Price) < 10 ;
             var isHouse = !isStock && !isBond;
@@ -88,6 +109,7 @@ function timelineChart() {
                     chosenData.push({"Symbol": chosenStock[i],
                         "data": data.filter(d => d.Symbol == chosenStock[i])});
                 }
+                //console.log(chosenData)
             }else if (isBond) {
                 data = data.map(function (d, i) {
                     return { "time": timeValue(d), "value": dataValue(d) };
@@ -109,11 +131,9 @@ function timelineChart() {
             
             var line = d3.line()
                 .x(function(d) { 
-                    //console.log(d.time)
                     return x(d.time); 
                 })
                 .y(function(d) { 
-                    //console.log(d.value)
                     return y(d.value); 
                 });
 
@@ -216,15 +236,18 @@ function timelineChart() {
                 .call(d3.axisLeft(y));
 
                 for (var i = 0; i < chosenData.length; i++) {
+                    
                     gEnter.append("path")
                         .datum(chosenData[i].data)
-                        .attr("class", "data_"+chosenData[i].Symbol)
+                        .attr("id", "data_"+chosenData[i].Symbol)
+                        .attr("class", "data_path")
                         .attr("fill", "none")
-                        .attr("stroke", "steelblue")
+                        .attr("stroke", colorScale[chosenData[i].Symbol])
                         .attr("stroke-linejoin", "round")
                         .attr("stroke-linecap", "round")
                         .attr("stroke-width", 4);
-                    g.select("path.data_"+chosenData[i].Symbol)
+                    
+                    g.select("#data_"+chosenData[i].Symbol)
                         .datum(chosenData[i].data)
                         .attr("d", line)
                         .call(transition)
@@ -232,27 +255,29 @@ function timelineChart() {
                         .on("mouseout", function() { focus.style("display", "none"); })
                         .on("mousemove", mousemove);
 
-
-
                 }    
             }else if (isHouse){
-                //console.log(data)
+                
                 gEnter.append("path")
                 .datum(data)
-                .attr("class", "data_house")
+                .attr("id", "data_house")
+                .attr("class", "data_path")
                 .attr("fill", "none")
-                .attr("stroke", "steelblue")
+                .attr("stroke", colorScale["house"])
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
                 .attr("stroke-width", 4);
 
-                g.select("path.data_house")
+                g.select("#data_house")
                 .datum(data)
                 .attr("d", line)
                 .call(transition)
                 .on("mouseover", function() { focus.style("display", null); })
                 .on("mouseout", function() { focus.style("display", "none"); })
                 .on("mousemove", mousemove);
+
+                //console.log("path 2 round")
+                //console.log(gEnter)
 
 
                 gEnter.append("g").attr("class", "axis y house")
@@ -268,18 +293,19 @@ function timelineChart() {
                 .attr("class", "axis y house")
                 .call(d3.axisLeft(y));
 
-            } else {
+            }else {
                 
                 gEnter.append("path")
                 .datum(data)
-                .attr("class", "data_bond")
+                .attr("class", "data_path")
+                .attr("id", "data_bond")
                 .attr("fill", "none")
-                .attr("stroke", "steelblue")
+                .attr("stroke", colorScale["bond"])
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")
                 .attr("stroke-width", 4);
 
-                g.select("path.data_bond")
+                g.select("#data_bond")
                 .datum(data)
                 .attr("d", line)
                 .call(transition)
@@ -320,9 +346,7 @@ function timelineChart() {
             d0 = data[i - 1],
             d1 = data[i],
             d = x0 - d0.time > d1.time - x0 ? d1 : d0;
-             //console.log(d)
-            // console.log(i)
-            // console.log(d0)
+
             focus.attr("transform", "translate(" + x(d.time) + "," + y(d.value) + ")");
             focus.select("text").text(function() { 
               return d.value; 
@@ -429,10 +453,13 @@ function ready(error, stock, house, bond){
         })
       }
     }
+    houseFiltered = houseFiltered.filter(d => parseInt(d.Year_Month.substring(0,4))>=startYear)
 
     bondFiltered = bond.map(function(d){
         return {"Year_Month": d.DATE.substring(0,7), "Price": d.GS1}
     });
+
+    bondFiltered = bondFiltered.filter(d => parseInt(d.Year_Month.substring(0,4))>=startYear)
 
     stockFiltered = stockFiltered.map(function(d){
         return {"Symbol": d.Symbol, 
@@ -440,8 +467,11 @@ function ready(error, stock, house, bond){
             "Year_Month": d.Year_Month, 
             "Price": d.Close}
     });
+    stockFiltered = stockFiltered.filter(d => parseInt(d.Year_Month.substring(0,4))>=startYear)
 
     // trigger lines
+    
+    d3.selectAll(".path_stock").remove();
     d3.select("#chart_bond").datum(bondFiltered).call(lines);
     d3.select("#chart_stock").datum(stockFiltered).call(lines);
     d3.select("#chart_house").datum(houseFiltered).call(lines);
@@ -451,32 +481,21 @@ function ready(error, stock, house, bond){
 
 
     dataMerged = [];
-    for (var i = 0; i < 268; i++) {
+    //console.log(totalTime)
+
+    startIndex = 268 - totalTime;
+    for (var i = startIndex; i < 268; i++) {
+
         var time = bond[i]["DATE"];
         var housevalue, bondvalue, stockvalue = new Array(5);
+
         if(i < 3) {
             housevalue = 0;
         } else {
-            housevalue = parseFloat(house[i-3].Price);
+            housevalue =  parseFloat(house[i-3].Price);
         }
+
         bondvalue = parseFloat(bond[i].GS1);
-
-
-        // for (var j = 0; j < 5; j++) {
-        //     var onestock = stockFiltered
-        //         .filter(d => d.Symbol == chosenStock[j]);
-
-        //     if (j < chosenStock.length) { 
-        //         if (onestock.length - 268 + i < 0) {
-        //             stockvalue[j] = 0;
-        //         }else{
-        //             stockvalue[j] = parseFloat(onestock[i-(268 - onestock.length)].Price); 
-        //         }  
-        //     }
-        //     else {
-        //         stockvalue[j] = 0
-        //     }   
-        // }
 
         var dataobj = {}
         dataobj["time"] = time
@@ -496,24 +515,13 @@ function ready(error, stock, house, bond){
         }
 
         dataMerged.push(dataobj);
-
-        // dataMerged.push({
-        //     "time": time,
-        //     "stock1": stockvalue[0],
-        //     "stock2": stockvalue[1],
-        //     "stock3": stockvalue[2],
-        //     "stock4": stockvalue[3],
-        //     "stock5": stockvalue[4],
-        //     "house": housevalue,
-        //     "bond": bondvalue
-        // })
     }
 
     // draw bar-chart dynamically
     currentIx = 0
     function changeBarChart() {
-        currentIx += 1;
-        if (currentIx == 1) {
+        
+        if (currentIx == 0) {
             drawBarAxis(dataMerged[currentIx]);
         }
         drawBarChart(dataMerged[currentIx]);
@@ -522,12 +530,13 @@ function ready(error, stock, house, bond){
         yearChange(dataMerged[currentIx]);
         totalChange(dataMerged[currentIx]);
         interestChange(dataMerged[currentIx]);
-        if (currentIx >= totalTime) {return;}
-        setTimeout(changeBarChart, 200);
+        if (currentIx >= totalTime-1) {return;}
+        setTimeout(changeBarChart, TRAINSITION_DURATION);
+        currentIx += 1;
     }
 
     // triger bars
-    setTimeout(changeBarChart, 200);
+    setTimeout(changeBarChart, TRAINSITION_DURATION);
     
 }
 
@@ -567,33 +576,23 @@ for (var i = 0; i < chosenStock.length; i++) {
     colorScale[chosenStock[i]] = stock_colors[i]
 }
 
-// var colorScale = {
-//     "stock1": "#F5BAC7",
-//     "stock2": "#F5BAC7",
-//     "stock3": "#F5BAC7",
-//     "stock4": "#F5BAC7",
-//     "stock5": "#F5BAC7",
-//     "house": "#E2C843", 
-//     "bond": "#85BB4B"
-// }
-
 // draw one bar chart
 var drawBarChart = function(updateData){ 
     
     var bondScale = d3.scaleLog()
-                .range([0, barwidth-20])
+                .range([0, barwidth-50])
                 .domain(d3.extent(bondDataset, d => parseFloat(d.GS1)));
     var houseScale = d3.scaleLinear()
-                .range([0, barwidth-20])
+                .range([0, barwidth-50])
                 .domain(d3.extent(houseDataset, d => parseFloat(d.Price)));
     var stockScale = d3.scaleLinear()
-                .range([0, barwidth-20])
+                .range([0, barwidth-50])
                 .domain(d3.extent(stockFiltered, d => parseFloat(d.Price)));
 
     //console.log(d3.range(stockDataset, d => parseFloat(d.Close)))
     const t = d3.transition()
-        .duration(1000)
-        .delay(2000);
+        .duration(TRAINSITION_DURATION);
+        //.delay(2000);
         //.ease(d3.easeLinear);
 
     var data = dataOneYear(updateData);
@@ -619,17 +618,20 @@ var drawBarChart = function(updateData){
           .attr('fill', d => colorScale[d.class])
         .merge(bars)
           .transition()
-          .duration(200)
+          .duration(TRAINSITION_DURATION)
           .attr('y', d => bandScale(d.class))
           .attr('width', function(d, i) {
             if(d.class == "house") {
                 if (d.value == 0) {return 0;}
                 else {return houseScale(d.value);}  
             } else if(d.class == "bond"){
-                return bondScale(d.value);
+                if (d.value == 0) {return 0;}
+                else return bondScale(d.value);
             } else {//stock
                 if (d.value == 0) {return 0;}
                 else return stockScale(d.value);
+                console.log(d.value)
+                console.log(stockScale(d.value))
             }
           }) //d => xScale(d.value
           .attr('height', bandScale.bandwidth());
@@ -694,24 +696,13 @@ function drawBarPerChange(updateData){
     barperchange.selectAll('text')
     .data(data1year).enter()
     .append('text')
-    .attr('x', 20)
+    .attr('x', 10)
     .attr('y', d => bandScale(d.class)+bandScale.bandwidth()*(1/2+0.1))
     .attr('font-size', 15)
     .attr('text-anchor', 'center')
     .text(d => Math.round(d.value*100)/100)
         .transition()
-        .duration(200);
-    // .on("start", function repeat() {
-    //     d3.active(this)
-    //         .tween("text", function() {
-    //             var that = d3.select(this),
-    //                 i = d3.interpolateNumber(that.text().replace(/,/g, ""), Math.random() * 1e6);
-    //             return function(t) { that.text(format(i(t))); };
-    //         })
-    //         .transition()
-    //           .delay(1500)
-    //           .on("start", repeat);
-    //     });
+        .duration(TRAINSITION_DURATION);
 }
 
 // draw year change division
@@ -787,7 +778,7 @@ function yearChange(updateData){
     .attr('text-anchor', 'center')
     .text(year)
         .transition()
-        .duration(200);
+        .duration(TRAINSITION_DURATION);
 
     yearg.append('text')
     .attr('id', "currentmonth")
@@ -797,7 +788,7 @@ function yearChange(updateData){
     .attr('text-anchor', 'center')
     .text(month)
         .transition()
-        .duration(200);
+        .duration(TRAINSITION_DURATION);
 
 }
 
@@ -816,7 +807,7 @@ function totalChange(updateData){
     .attr('text-anchor', 'center')
     .text(total)
         .transition()
-        .duration(200);
+        .duration(TRAINSITION_DURATION);
 }
 
 // change total text
@@ -834,14 +825,14 @@ function interestChange(updateData){
     .attr('text-anchor', 'center')
     .text(interest)
         .transition()
-        .duration(200);
+        .duration(TRAINSITION_DURATION);
 }
 
 
 d3.queue()
       .defer(d3.csv, "stock_price_clean.csv")
       .defer(d3.csv, "house_price_clean.csv")
-      .defer(d3.csv, "GS1.csv")
+      .defer(d3.csv, "GS1_clean.csv")
       .await(ready);
 
 

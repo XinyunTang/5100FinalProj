@@ -64,6 +64,10 @@ div .option{
     color: red;
     margin-left: 5px;
 }
+#submit {
+    font-size: 16px;
+}
+
 
 .ui-menu {
   max-width: 130px;
@@ -102,13 +106,16 @@ input[type=text] {
     height: 120px;
 }
 .ui-slider {
-    background: #ca4471;
+    /*bond*/
+    background: rgb(133, 187, 75);
 }
 .ui-slider-range {
-    background: #00CC66;
+    /*stock*/
+    background: rgb(255, 77, 77);
 }
 #YourDiv {
-    background: #5574f0;
+    /*house*/
+    background: rgb(255, 204, 51);
     border-radius: 0 4px 4px 0;
 }
 .ui-corner-all {
@@ -129,21 +136,33 @@ input[type=text] {
 }
 #inflation_result {
     text-align: center;
+    margin-bottom: 15px;
 }
 #optimal_text {
-    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;  
 }
 #optimal{
-    margin-left: 60px;
     margin-top: 10px;
-    display: flex;
     justify-content: center;
     width: 100%;
 }
-#bar-left, #bar-right{
-    width: 600px;
-    height: 230px;
+#optimal_bar1{
+    justify-content: center;
+    width: 1000px;
+    margin-left: 15%;
+/*    height: 1000px;*/
 }
+#optimal_bar2{
+    justify-content: center;
+    margin-left: 15%;
+    width: 1000px;
+}
+.y-axis{
+    font-size: 12px;
+}
+line{ stroke:black;stroke-width:1; }
 
 
 .grid-container {

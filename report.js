@@ -1,8 +1,8 @@
 var rates = []
-var start = 2000;
+var inflation_rate;
 d3.csv("inflation.csv", function(data) {
-   var inflation_rate = calc_inflation(start, 2018, data);
-   console.log(inflation_rate)
+   inflation_rate = calc_inflation(user_year, 2018, data);
+   // console.log(inflation_rate);
 });
 
 // data is array of objs with year and rate as key, both string

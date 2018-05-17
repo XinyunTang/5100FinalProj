@@ -31,14 +31,14 @@
 			<div>
 				<div class="option">
 					<img class="icon" src="/pic/house.png" alt="property" style="width:20px;margin-right: 10px;">
-					<span id="property_value">40%</span> in <span style="color:#E2C843;">property</span> in the city:
+					<span id="property_value">40%</span> in <span style="color:rgb(255, 204, 51);">property</span> in the city:
 					<div class="autocomplete" style="width:120px;height: 25px;">
 						<input id="cityInput" type="text" name="city" placeholder="New York, NY">
 					</div>
 				</div>
 				<div class="option" id="stock_option">
 					<img class="icon" src="/pic/stock.png" alt="stock" style="width:20px;margin-right: 10px;">
-					<span id="stock_value">30%</span> in <span style="color:#d92626;">stocks</span> of 
+					<span id="stock_value">30%</span> in <span style="color:rgb(255, 77, 77);">stocks</span> of 
 					<div class="autocomplete" style="width:100px;height: 25px"> 
 						<input id="stockInput" type="text" name="stock" placeholder="GOOGL">
 					</div>
@@ -47,7 +47,7 @@
 				</div>
 				<div class="option">
 					<img class="icon" src="/pic/bond.png" alt="bond" style="width:20px;margin-right: 10px;">
-					<span id="bond_value">30%</span> in <span style="color:#85BB4B;">1-year Treasury bond</span>
+					<span id="bond_value">30%</span> in <span style="color:rgb(133, 187, 75);">1-year Treasury bond</span>
 				</div>
 				<div class="option">
 					<button id="submit" type="button" onclick="submitData()">Start Invest</button>
@@ -69,15 +69,20 @@
 		<div id="report">
 			<div id="inflation_compare">
 				<span id="congra" style="font-weight: bold"></span> 
-				<span id="win">Your investment beats inflation <span id="times_compare" style="font-weight: bold"></span> times!<span>
+				<span id="win">Your investment earns <span id="times_compare" style="font-weight: bold"></span> times of the inflation!<span>
 				<span id="lose">Your investment lose to inflation!</span>
 			</div>
-			<div id="inflation_result">$100,000 in year <span id="year_value2">1996</span> is worth $<span id="inflation_value">120,000</span> in 2018</div>
+			<div id="inflation_result">With inflation, $100,000 in year <span id="year_value2">1996</span> is worth $<span id="inflation_value">120,000</span> in 2018.</div>		
 			<div id="optimal_text">
-				According to your investment proportion, we find the optimal portfolio for you. 
-			</div>			
+				The bar charts below show the cumulative return of your porfolio performance and the optimal portfolio.
+			</div>
+
 			<div id="optimal">
-				<div id="optimal_bar"></div>
+				<div id="optimal_bar1"></div>
+				<div id="optimal_text">
+					According to your investment proportion, we find the optimal portfolio for you. 
+				</div>	
+				<div id="optimal_bar2"></div>
 			</div>
 
 		<div>

@@ -5,6 +5,11 @@ colors = {"rect1": "#E2C843", "rect2": "#85BB4B", "rect3": "#F5BAC7"}
 console.log(colors.rect1)
 // pie chart radius
 
+
+colors = {"housing": "#E2C843", "bond": "#85BB4B", "stock": "#d92626"}
+
+stock_colors = ["#996666", "#bf4040", "#d92626", "#f20d0d", "#936c6c"]
+
 // setup the margins so we don't clip the outter labels
 var margin = {
   top: 200,

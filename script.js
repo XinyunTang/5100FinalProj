@@ -136,17 +136,17 @@ function calc_inflation(start, end, data) {
     return res;
 }
 var choice_performance = [    {"stock_long": "Bond ", "price": 3.1},
-    {"stock_long": "Stock ", "price": 17},
     {"stock_long": "Property", "price": 8},
-    {"stock_long": "Your Investment Propofio", "price": 18}];
+    {"stock_long": "Stock ", "price": 17},
+    {"stock_long": "Your Investment Portfolio", "price": 18}];
 overall = 18;
 
 d3.csv("inflation.csv", function(data) {
     inflation_rate = calc_inflation(user_year, 2018, data);
     var inf_d = {}
     inf_d["price"] = inflation_rate;
-    inf_d["stock_long"] = "inflation";
-    inf_d["type"] = "inflation";
+    inf_d["stock_long"] = "Inflation";
+    inf_d["type"] = "Inflation";
     choice_performance.push(inf_d);
     drawBar(choice_performance, svg1, height1);
 
@@ -167,18 +167,67 @@ d3.csv("inflation.csv", function(data) {
 
 
 
-var margin = {top: 20, right: 90, bottom: 20, left: 170};
+var margin = {top: 20, right: 20, bottom: 20, left: 260};
 var width = 800 - margin.left - margin.right,
     height1 = 250 - margin.top - margin.bottom;
     height2 = 400 - margin.top - margin.bottom;
 
-var svg1 = d3.select("#optimal_bar").append("svg")
+var svg1 = d3.select("#optimal_bar1").append("svg")
+    .attr("class", "svg-bar")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height1 + margin.top + margin.bottom);
 
-var svg2 = d3.select("#optimal_bar").append("svg")
+var svg2 = d3.select("#optimal_bar2").append("svg")
+    .attr("class", "svg-bar")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height2 + margin.top + margin.bottom);
+
+svg1.append("line").attr("x1", 75).attr("y1", 80).attr("x2", 75).attr("y2", 210);
+svg1.append("line").attr("x1", 75).attr("y1", 80).attr("x2", 85).attr("y2", 80);
+svg1.append("line").attr("x1", 75).attr("y1", 210).attr("x2", 85).attr("y2", 210);
+svg1.append("text")
+    .attr("x", 3)
+    .attr("y", 145)
+    .attr("font-size", "12px")
+    .text("Your Choice   -");
+
+svg2.append("line").attr("x1", 75).attr("y1", 65).attr("x2", 75).attr("y2", 210);
+svg2.append("line").attr("x1", 75).attr("y1", 65).attr("x2", 85).attr("y2", 65);
+svg2.append("line").attr("x1", 75).attr("y1", 210).attr("x2", 85).attr("y2", 210);
+svg2.append("text")
+    .attr("x", 3)
+    .attr("y", 133)
+    .attr("font-size", "12px")
+    .text("Top 5 stocks   -");
+svg2.append("text")
+    .attr("x", 3)
+    .attr("y", 148)
+    .attr("font-size", "12px")
+    .text("with highest");
+svg2.append("text")
+    .attr("x", 3)
+    .attr("y", 160)
+    .attr("font-size", "12px")
+    .text("return");
+
+svg2.append("line").attr("x1", 75).attr("y1", 230).attr("x2", 75).attr("y2", 375);
+svg2.append("line").attr("x1", 75).attr("y1", 230).attr("x2", 85).attr("y2", 230);
+svg2.append("line").attr("x1", 75).attr("y1", 375).attr("x2", 85).attr("y2", 375);
+svg2.append("text")
+    .attr("x", 3)
+    .attr("y", 298)
+    .attr("font-size", "12px")
+    .text("Top 5 cities   -");
+svg2.append("text")
+    .attr("x", 3)
+    .attr("y", 148+165)
+    .attr("font-size", "12px")
+    .text("with highest");
+svg2.append("text")
+    .attr("x", 3)
+    .attr("y", 160+165)
+    .attr("font-size", "12px")
+    .text("propert return");
 
 // parse the data
 function parseLine(line) {
@@ -208,34 +257,58 @@ d3.csv("GS1_optimal.csv", parseLine, function(error, data){
         d["stock_long"] = "Optimal Investment Portfolio"
         d["type"] = "total"
         opt_year.push(d);
-        console.log(total);
-        console.log(opt_year);
-        console.log(stock_price);
         drawBar(opt_year, svg2, height2);
     })
 });
 
 
-
 function drawBar(data, svg, height) {
-    var x = d3.scaleLinear().range([0, width]);
+    var type = "";
+    if (data.length < 10) {
+        type = "total";
+    }
+    else {
+        type = "optimal";
+    }
+    // scales 
+    var prices = []
+    for (var i = 0; i< data.length; i++) {
+        prices.push(data[i].price)
+    }
+
+    var x = d3.scaleLog()
+    .domain([d3.min(prices), d3.max(prices)]).range([1, width]).nice();
+
+    var scaled = []
+    for (var i = 0; i< data.length; i++) {
+        scaled.push(x(data[i].price))
+    }
     var y = d3.scaleBand().range([height, 0]);
+
+    // define gradient colors
+    var stock_colors =  ["#ff0000", "#ff4d4d", "#ff8080", "#ffb3b3", "#ffcccc"];
+    var house_colors = ["#ffbf00", "#ffcc33", "#ffd966", "#ffdf80", "#ffe699"];
+    var total_colors = ["#000066", "#66b3ff", "#ff4d4d", "#ffcc33", "#85BB4B"];
 
     var g = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // data.sort(function(a, b) { return a.stock_price - b.stock_price; });
     
-    x.domain([0, d3.max(data, function(d) { return d.price; })]);
     y.domain(data.map(function(d) { return d.stock_long; })).padding(0.1);
+    if (type == "total") {
+        g.append("g")
+        .attr("class", "x-axis")
+        .call(d3.axisTop(x).ticks(2).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
+    }
+    else {
+        g.append("g")
+        .attr("class", "x-axis")
+        .call(d3.axisTop(x).ticks(3).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
+    }
 
     g.append("g")
-        .attr("class", "x axis")
-        // .attr("transform", "translate(0,0)")
-        .call(d3.axisTop(x).ticks(5).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
-
-    g.append("g")
-        .attr("class", "y axis")
+        .attr("class", "y-axis")
         .call(d3.axisLeft(y));
 
     var bars = svg.selectAll(".bar")
@@ -245,15 +318,25 @@ function drawBar(data, svg, height) {
 
     bars.append("rect")
         .attr("class", "bar")
+        .data(data)
         .attr("x", margin.left)
         .attr("height", y.bandwidth())
         .attr("y", function(d) { return y(d.stock_long) + margin.top; })
-        .attr("width", function(d) { return x(d.price); })
-        .attr("fill", function (d){ 
-            if (d.type == "stock"){
-                return "#996666";
-            } else if (d.type == "property"){
-                return "#E2C843";
+        .attr("width", function(d,i) { return scaled[i];})
+        .attr("fill", function (d,i){
+            if (i <= 4) {
+                if (type == "total") {
+                    return total_colors[4-i]
+                }
+                else {
+                    return house_colors[4-i];
+                }
+            }
+            else if (i <=9) {
+                return stock_colors[9-i];
+            }
+            else {
+                return "#66b3ff";
             }
         });
 
@@ -263,14 +346,13 @@ function drawBar(data, svg, height) {
         .attr("y", function (d) {
             return y(d.stock_long)+ y.bandwidth() / 2 + 4 + margin.top;
         })
-        .attr("x", function (d) {
-            return x(d.price) + margin.left;
+        .attr("x", function (d,i) {
+            return scaled[i] + margin.left;
         })
         .text(function (d) {
 
             return Number((d.price).toFixed(2)) + " times" ;
         });
-
 };
 
 

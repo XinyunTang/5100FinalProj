@@ -107,15 +107,15 @@ input[type=text] {
 }
 .ui-slider {
     /*bond*/
-    background: #85BB4B;
+    background: rgb(133, 187, 75);
 }
 .ui-slider-range {
     /*stock*/
-    background: #d92626;
+    background: rgb(255, 77, 77);
 }
 #YourDiv {
     /*house*/
-    background: #E2C843;
+    background: rgb(255, 204, 51);
     border-radius: 0 4px 4px 0;
 }
 .ui-corner-all {
@@ -136,22 +136,33 @@ input[type=text] {
 }
 #inflation_result {
     text-align: center;
+    margin-bottom: 15px;
 }
 #optimal_text {
-    text-align: center;
     margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;  
 }
 #optimal{
-    margin-left: 60px;
     margin-top: 10px;
-    display: flex;
     justify-content: center;
     width: 100%;
 }
-#optimal_bar{
+#optimal_bar1{
+    justify-content: center;
     width: 1000px;
-    height: 1000px;
+    margin-left: 15%;
+/*    height: 1000px;*/
 }
+#optimal_bar2{
+    justify-content: center;
+    margin-left: 15%;
+    width: 1000px;
+}
+.y-axis{
+    font-size: 12px;
+}
+line{ stroke:black;stroke-width:1; }
 
 
 .grid-container {

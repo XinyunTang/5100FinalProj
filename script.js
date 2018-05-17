@@ -138,7 +138,7 @@ function calc_inflation(start, end, data) {
 var choice_performance = [    {"stock_long": "Bond ", "price": 3.1},
     {"stock_long": "Stock ", "price": 17},
     {"stock_long": "Property", "price": 8},
-    {"stock_long": "Your Investment Propofio", "price": 18}];
+    {"stock_long": "Your Investment Portfolio", "price": 18}];
 
 d3.csv("inflation.csv", function(data) {
     inflation_rate = calc_inflation(user_year, 2018, data);
@@ -201,7 +201,7 @@ d3.csv("GS1_optimal.csv", parseLine, function(error, data){
         // drawBar(opt_year);
         var d = {}
         d["price"] = total
-        d["stock_long"] = "Optimal Investment Propofio"
+        d["stock_long"] = "Optimal Investment Portfolio"
         d["type"] = "total"
         opt_year.push(d);
         console.log(total);
@@ -213,37 +213,50 @@ d3.csv("GS1_optimal.csv", parseLine, function(error, data){
 
 
 function drawBar(data, svg, height) {
+    console.log("current data is ", data)
+    var type = "";
+    if (data.length < 10) {
+        type = "total";
+    }
+    else {
+        type = "optimal";
+    }
+    // scales 
     var prices = []
     for (var i = 0; i< data.length; i++) {
         prices.push(data[i].price)
     }
-
     var x = d3.scaleLog()
     .domain([d3.min(prices), d3.max(prices)]).range([1, width-100]).nice();
-    console.log("x", x(30.18013072))
-
     var scaled = []
     for (var i = 0; i< data.length; i++) {
         scaled.push(x(data[i].price))
     }
-    console.log(scaled)
     var y = d3.scaleBand().range([height, 0]);
+
+    // define gradient colors
     var stock_colors =  ["#ff0000", "#ff4d4d", "#ff8080", "#ffb3b3", "#ffcccc"];
     var house_colors = ["#ffbf00", "#ffcc33", "#ffd966", "#ffdf80", "#ffe699"];
+    var total_colors = ["#000066", "#66b3ff", "#ffcc33", "#ff4d4d", "#85BB4B"];
 
     var g = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // data.sort(function(a, b) { return a.stock_price - b.stock_price; });
     
-    x.domain([0, d3.max(data, function(d) { return d.price; })]);
+    // x.domain([0, d3.max(data, function(d) { return d.price; })]);
     y.domain(data.map(function(d) { return d.stock_long; })).padding(0.1);
-
-    g.append("g")
+    if (type == "total") {
+        g.append("g")
         .attr("class", "x axis")
-        // .attr("transform", "translate(0,0)")
-        .call(d3.axisTop(x).ticks(5).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
-
+        .call(d3.axisTop(x).ticks(2).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
+    }
+    else {
+        g.append("g")
+        .attr("class", "x axis")
+        .call(d3.axisTop(x).ticks(3).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
+    }
+   
     console.log("the data is ", data);
 
     g.append("g")
@@ -262,18 +275,20 @@ function drawBar(data, svg, height) {
         .attr("height", y.bandwidth())
         .attr("y", function(d) { return y(d.stock_long) + margin.top; })
         .attr("width", function(d,i) { return scaled[i];})
-        .attr("fill", function (d,i){ 
-            // if (d.type == "stock"){
-            //     return "#996666";
-            // } else {
-            //     return "#E2C843";
-            // }
+        .attr("fill", function (d,i){
             if (i <= 4) {
-                // console.log(house_colors)
-                return house_colors[4-i];
+                if (type == "total") {
+                    return total_colors[4-i]
+                }
+                else {
+                    return house_colors[4-i];
+                }
+            }
+            else if (i <=9) {
+                return stock_colors[9-i];
             }
             else {
-                return stock_colors[9-i];
+                return "#66b3ff";
             }
         });
 

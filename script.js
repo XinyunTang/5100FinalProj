@@ -9,6 +9,7 @@ var year_slider = d3.slider().min(1996).max(2018).ticks(0).stepValues(d3.range(1
 d3.select("#year_slider").call(year_slider);
 d3.select("#year_value").text(2000);
 
+var user_year = year_slider.value();
 
 var cities = ['New York, NY', 'Los Angeles, CA', 'Chicago, IL', 'Houston, TX', 'Philadelphia, PA', 'Phoenix, AZ', 'Las Vegas, NV',
        'San Antonio, TX', 'San Diego, CA', 'San Jose, CA', 'Jacksonville, FL', 'San Francisco, CA', 'Austin, TX',
@@ -247,25 +248,42 @@ $("#amount").val("$" + $("#slider-range").slider("values", 0) +
     " - $" + $("#slider-range").slider("values", 1));
 
 
-var data = [    {"area": "central ", "value": 18000},
-    {"area": "Riverside ", "value": 17000},
-    {"area": "Picton ", "value": 80000},
-    {"area": "Everton ", "value": 55000},
-    {"area": "Kensington ", "value": 100000},
-    {"area": "Kirkdale", "value": 50000}];
 
-//sort bars based on value
-data = data.sort(function (a, b) {
-    return d3.ascending(a.value, b.value);
-})
+var inflation_rate;
+
+// data is array of objs with year and rate as key, both string
+function calc_inflation(start, end, data) {
+    var res = 1;
+    for (var i = 0; i < data.length; i++) {
+        var curr_year = parseInt(data[i].year);
+        var curr_rate = parseFloat(data[i].rate);
+        if (curr_year >= start) {
+            res = res*(1+curr_rate/100);
+        }
+    }
+    return res;
+}
+
+
 
 var margin = {top: 20, right: 90, bottom: 20, left: 170};
 var width = 800 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height1 = 250 - margin.top - margin.bottom;
+    height2 = 400 - margin.top - margin.bottom;
 
-var svg = d3.select("#optimal_bar").append("svg")
+var svg1 = d3.select("#optimal_bar").append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
+    .attr("height", height1 + margin.top + margin.bottom);
+
+var svg2 = d3.select("#optimal_bar").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height2 + margin.top + margin.bottom);
+
+
+var choice_performance = [    {"stock_long": "Bond ", "price": 3.1},
+    {"stock_long": "Stock ", "price": 17},
+    {"stock_long": "Property", "price": 8},
+    {"stock_long": "Your Investment Propofio", "price": 18}];
 
 // parse the data
 function parseLine(line) {
@@ -275,32 +293,48 @@ function parseLine(line) {
     return line;
 }
 
-var user_year = year_slider.value();
+d3.csv("inflation.csv", function(data) {
+    inflation_rate = calc_inflation(user_year, 2018, data);
 
-// adding data from optimal
-d3.csv("GS1_optimal.csv", parseLine, function(error, data){
-    bond_data = data;
-    bond_year = bond_data.filter(function(d) { return d.year==user_year; });
-    bond_price = bond_year[0].price;
-
-    d3.csv("optimals.csv", parseLine, function(error, data){
-        optimal_data = data;
-        opt_year = optimal_data.filter(function(d) { return d.year==user_year; });
-
-        stock_price = opt_year.filter(function(d) { return d.rank==0&d.type=="stock"; })[0].price;
-        property_price = opt_year.filter(function(d) { return d.rank==0&d.type=="property"; })[0].price;
-
-        
-        total = property_percent * property_price + stock_percent * stock_price + bond_percent * bond_price;
-        console.log(total);
-        console.log(opt_year);
-        console.log(stock_price);
-        drawBar(opt_year);
-    })
+    var inf_d = {}
+    inf_d["price"] = inflation_rate;
+    inf_d["stock_long"] = "inflation";
+    inf_d["type"] = "inflation";
+    choice_performance.push(inf_d);
+    console.log(choice_performance);
+    drawBar(choice_performance, svg1, height1);
 });
 
+    // adding data from optimal
+    d3.csv("GS1_optimal.csv", parseLine, function(error, data){
+        bond_data = data;
+        bond_year = bond_data.filter(function(d) { return d.year==user_year; });
+        bond_price = bond_year[0].price;
 
-function drawBar(data) {
+        d3.csv("optimals.csv", parseLine, function(error, data){
+            optimal_data = data;
+            opt_year = optimal_data.filter(function(d) { return d.year==user_year; });
+
+            stock_price = opt_year.filter(function(d) { return d.rank==0&d.type=="stock"; })[0].price;
+            property_price = opt_year.filter(function(d) { return d.rank==0&d.type=="property"; })[0].price;
+
+            
+            total = property_percent * property_price + stock_percent * stock_price + bond_percent * bond_price;
+            var d = {}
+            d["price"] = total
+            d["stock_long"] = "Optimal Investment Propofio"
+            d["type"] = "total"
+            opt_year.push(d);
+            console.log(total);
+            console.log(opt_year);
+            console.log(stock_price);
+            drawBar(opt_year, svg2, height2);
+        })
+    });
+
+
+
+function drawBar(data, svg, height) {
     var x = d3.scaleLinear().range([0, width]);
     var y = d3.scaleBand().range([height, 0]);
 
@@ -335,7 +369,7 @@ function drawBar(data) {
         .attr("fill", function (d){ 
             if (d.type == "stock"){
                 return "#996666";
-            } else {
+            } else if (d.type == "property"){
                 return "#E2C843";
             }
         });

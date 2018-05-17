@@ -64,6 +64,10 @@ div .option{
     color: red;
     margin-left: 5px;
 }
+#submit {
+    font-size: 16px;
+}
+
 
 .ui-menu {
   max-width: 130px;
@@ -102,13 +106,16 @@ input[type=text] {
     height: 120px;
 }
 .ui-slider {
-    background: #ca4471;
+    /*bond*/
+    background: #85BB4B;
 }
 .ui-slider-range {
-    background: #00CC66;
+    /*stock*/
+    background: #d92626;
 }
 #YourDiv {
-    background: #5574f0;
+    /*house*/
+    background: #E2C843;
     border-radius: 0 4px 4px 0;
 }
 .ui-corner-all {

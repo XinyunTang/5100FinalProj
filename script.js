@@ -139,6 +139,7 @@ var choice_performance = [    {"stock_long": "Bond ", "price": 3.1},
     {"stock_long": "Stock ", "price": 17},
     {"stock_long": "Property", "price": 8},
     {"stock_long": "Your Investment Propofio", "price": 18}];
+overall = 18;
 
 d3.csv("inflation.csv", function(data) {
     inflation_rate = calc_inflation(user_year, 2018, data);
@@ -147,17 +148,24 @@ d3.csv("inflation.csv", function(data) {
     inf_d["stock_long"] = "inflation";
     inf_d["type"] = "inflation";
     choice_performance.push(inf_d);
-    console.log(choice_performance);
     drawBar(choice_performance, svg1, height1);
+
+
+    if(overall/inflation_rate > 1){
+        $("#congra").text("Congratulation!");
+        $("#times_compare").text(Math.round(overall/inflation_rate));
+        $("#lose").hide();
+        $("#win").show();
+    } else {
+        $("#congra").text("Oops!");
+        $("#lose").show();
+        $("#win").hide();
+    }
+    $("#year_value2").text(user_year);
+    $("#inflation_value").text((inflation_rate * 100000).toFixed(2));
 });
 
-overall = 18
-if(overall/inflation_rate > 1){
-    $("#congra").text("Congraduation!");
-    // $("#congra").text("Congraduation!");
-} else {
-    $("#congra").text("Oops!");
-}
+
 
 var margin = {top: 20, right: 90, bottom: 20, left: 170};
 var width = 800 - margin.left - margin.right,
@@ -197,7 +205,7 @@ d3.csv("GS1_optimal.csv", parseLine, function(error, data){
         total = property_percent * property_price + stock_percent * stock_price + bond_percent * bond_price;
         var d = {}
         d["price"] = total
-        d["stock_long"] = "Optimal Investment Propofio"
+        d["stock_long"] = "Optimal Investment Portfolio"
         d["type"] = "total"
         opt_year.push(d);
         console.log(total);

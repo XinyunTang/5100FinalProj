@@ -292,17 +292,32 @@ d3.csv("GS1_optimal.csv", parseLine, function(error, data){
 
         
         total = property_percent * property_price + stock_percent * stock_price + bond_percent * bond_price;
-        console.log(total);
-        console.log(opt_year);
-        console.log(stock_price);
+        // console.log(total);
+        // console.log(opt_year);
+        // console.log(stock_price);
         drawBar(opt_year);
     })
 });
 
 
 function drawBar(data) {
-    var x = d3.scaleLinear().range([0, width]);
+    var prices = []
+    for (var i = 0; i< data.length; i++) {
+        prices.push(data[i].price)
+    }
+
+    var x = d3.scaleLog()
+    .domain([d3.min(prices), d3.max(prices)]).range([1, width-100]).nice();
+    console.log("x", x(30.18013072))
+
+    var scaled = []
+    for (var i = 0; i< data.length; i++) {
+        scaled.push(x(data[i].price))
+    }
+    console.log(scaled)
     var y = d3.scaleBand().range([height, 0]);
+    var stock_colors =  ["#ff0000", "#ff4d4d", "#ff8080", "#ffb3b3", "#ffcccc"];
+    var house_colors = ["#ffbf00", "#ffcc33", "#ffd966", "#ffdf80", "#ffe699"];
 
     var g = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -317,6 +332,8 @@ function drawBar(data) {
         // .attr("transform", "translate(0,0)")
         .call(d3.axisTop(x).ticks(5).tickFormat(function(d) { return parseInt(d); }).tickSizeInner([-3]));
 
+    console.log("the data is ", data);
+
     g.append("g")
         .attr("class", "y axis")
         .call(d3.axisLeft(y));
@@ -328,15 +345,23 @@ function drawBar(data) {
 
     bars.append("rect")
         .attr("class", "bar")
+        .data(data)
         .attr("x", margin.left)
         .attr("height", y.bandwidth())
         .attr("y", function(d) { return y(d.stock_long) + margin.top; })
-        .attr("width", function(d) { return x(d.price); })
-        .attr("fill", function (d){ 
-            if (d.type == "stock"){
-                return "#996666";
-            } else {
-                return "#E2C843";
+        .attr("width", function(d,i) { return scaled[i];})
+        .attr("fill", function (d,i){ 
+            // if (d.type == "stock"){
+            //     return "#996666";
+            // } else {
+            //     return "#E2C843";
+            // }
+            if (i <= 4) {
+                // console.log(house_colors)
+                return house_colors[4-i];
+            }
+            else {
+                return stock_colors[9-i];
             }
         });
 
@@ -346,14 +371,13 @@ function drawBar(data) {
         .attr("y", function (d) {
             return y(d.stock_long)+ y.bandwidth() / 2 + 4 + margin.top;
         })
-        .attr("x", function (d) {
-            return x(d.price) + margin.left;
+        .attr("x", function (d,i) {
+            return scaled[i] + margin.left;
         })
         .text(function (d) {
 
             return Number((d.price).toFixed(2)) + " times" ;
         });
-
 };
 
 
